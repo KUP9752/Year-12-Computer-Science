@@ -1,12 +1,20 @@
 # Room paint CODE
-print('Enter the measurement you are using. cm/m')
-meas = input()
+units = int(input("1:Imperial, 2:Metric -->  "))
+
+if units == 1:
+    meas = input("Enter the Measurement you want to use. inches/feet --> ")
+elif units ==2:
+    print('Enter the measurement you are using. cm/m -->  ')
+    meas = input()
+else:
+    print("Invalid Input")
+
 print('Enter Height')
-height = int(input())
+height = float(input())
 print('Enter Length')
-length = int(input())
+length = float(input())
 print('Enter Width')
-width = int(input())
+width = float(input())
 
 #Total surface area of walls =
 
