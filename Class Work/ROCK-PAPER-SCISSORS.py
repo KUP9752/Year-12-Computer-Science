@@ -1,8 +1,9 @@
 #Rock, paper, scissors
 import random
 repeat = 1
+a = int(input("Choose from: 1-ROCK, 2-PAPER, 3-SCISSORS   "))
 while repeat == 1:
-    a = int(input("Choose from: 1-ROCK, 2-PAPER, 3-SCISSORS   "))
+    
     if not(a ==1 or a ==2 or a==3):
         print("Invalid input, Please Try Again")
         a = int(input("Choose from: 1-ROCK, 2-PAPER, 3-SCISSORS   "))
@@ -15,7 +16,7 @@ while repeat == 1:
             a = "Scissors"
         
         comp = int(random.randint(1,3))
-        print(comp)
+        #print(comp)
         if comp == 1:
             comp = "Rock"
         elif comp == 2:
@@ -37,7 +38,8 @@ while repeat == 1:
             if repeat ==1:
                 b = 1
             elif repeat == 2:
-                print("Thank You For Playing")
+                print("Thanks For Playing")
+                c = input()
                 b = 1
             else:
                 print("Invalid Input, Please Try Again")
