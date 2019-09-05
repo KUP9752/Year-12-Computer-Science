@@ -23,14 +23,17 @@ while repeat == 1:
             comp = "Paper"
         else:
             comp = "Scissors"
-
+        print()
         print("Player Choice:",a)
         print("Computer Choice:", comp)
         if (a == "Rock" and comp =="Scissors") or (a == "Paper" and comp == "Rock") or (a == "Scissors" and comp =="Paper"):
+            print()
             print("===You Win===")
         elif a == comp:
+            print()
             print("===You Chose the Same, Draw===")
         else:
+            print()
             print("===You Lost===")
         b = 0
         repeat = str(input("Would You like to play again?  Yes/No   "))
