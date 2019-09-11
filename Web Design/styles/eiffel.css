@@ -8,5 +8,5 @@ h3{color: white;}
 #header{padding:5px; background-color:#655035; text-align:center;}
 img {border:double 10px white;}
 .list {color:#333300;}
-#right-column {float:right; width: 350px; text-align:left;}
+#right-column {background-color: #bfa475;float:right; width: 350px; text-align:left;}
 #right-column h2{font-size 1.2rem;font-wight: bold;}
