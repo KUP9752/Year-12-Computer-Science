@@ -1,0 +1,19 @@
+Passing by value copies the data into the function, not ideal when the data we are using is very large
+
+Passing by referance copies the address of the argument into the parameter of the function/procedure, so it doesn't take too much space by copying
+
+def proc1(By val:x, By ref:y):
+	x = x -2
+	y = 0
+#end procedure
+
+m = 8
+n= 10
+proc1(m,n)
+print(m,n)
+
+here m gets copied into x, and x becomes 6 (becaue 8-2=6) however, m stays as 8.
+but when n gets passed by referance into y, its memory address becomes y, so when the program realises y is a reference it goes to the address and changes n into 0.
+so when we print m and n,  n has become "0" and m stays the same
+
+we generally dont want to pass by referance as we lose the initial data

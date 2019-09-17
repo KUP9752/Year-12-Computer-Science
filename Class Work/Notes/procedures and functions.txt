@@ -1,0 +1,20 @@
+//def// defines a function or a procedure
+
+
+Functions return a value
+
+def func():
+	return true
+#end function
+x =func()
+//x =True
+
+
+Procedures just do stuff
+
+def goodbye():
+	print("Goodbye")
+#end procedure
+
+.Libraries are predefined subroutines, that can be added to the program
+for example "math"; import math

@@ -1,0 +1,16 @@
+parameters appear in functions when they are being defined
+//x and y here are parameters, 
+def multiply(x,y):
+	print("....")
+#end function
+
+arguments are when actual values are assigned to the function before it executes
+when executing, eg:
+//x and y here are arguments
+
+x= 5
+y =2
+
+multiply(x,y)
+
+//There can be too many arguments but not too many parameters
