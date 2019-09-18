@@ -8,7 +8,7 @@ while repeat == 1:
         print("Invalid input, Please Try Again")
         #a = int(input("Choose from: 1-ROCK, 2-PAPER, 3-SCISSORS   "))
     else:
-        if a == 1:
+        if a == 1:   ### SRC - Please use meaningful variable names
             a = "Rock"
         elif a == 2:
             a = "Paper"
