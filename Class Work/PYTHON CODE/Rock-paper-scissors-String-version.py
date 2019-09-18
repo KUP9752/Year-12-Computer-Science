@@ -1,4 +1,7 @@
 #Rock, paper, scissors
+
+#a and b variables just used for loops, so i didn't name them specifically
+
 import random
 repeat = 1
 
