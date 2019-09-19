@@ -1,0 +1,6 @@
+programs are more easily and quickly written:
+Large programs are broken down into subtasks that are easier to program and manage
+Each module can be individually tested
+Modules can be re-used several times in a program
+Large programs are much easier to debug and maintain
+it helps when lots of people are working on one program at one time, each person can be doing a module/subroutine.

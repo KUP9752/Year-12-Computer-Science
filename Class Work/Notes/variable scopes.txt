@@ -1,0 +1,8 @@
+in python declaring a global variable at the start and use it in a subroutine, it will assume the 
+one in the function is a new local variable and the print function at the end would print the
+original initialised value,
+
+In other languages a gloabal variables changed in subroutines are changed globally
+
+A global variable is defined in the main program, and can be called my any suborutine, unless a variable with the same name is declared in the subroutine. 
+When a variable name is used in a subroutine a local variable will be created to that name.
