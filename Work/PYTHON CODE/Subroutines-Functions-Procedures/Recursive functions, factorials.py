@@ -14,6 +14,10 @@ def fact(n):
 
 
 choice = input("Enter the method you want to use: [Iteration/Recursion]")
+while not (choice == "Recursion" or choice =="recursion" or choice =="Iteration" or choice == "iteration"):
+    choice = input("You didn't enter the correct parameters, try again:")
+    
+
 while choice == "Recursion" or choice =="recursion":
     validated = False
     while not validated:
@@ -28,12 +32,16 @@ while choice == "Recursion" or choice =="recursion":
             validated = True
             print("factorial of", num, "is", fact(num))
             yesNo = input("Would you like to try a different number? [Yes/No]")
+            while not(yesNo == "yes" or yesNo =="Yes" or yesNo == "No" or yesNo =="no"):
+                yesNo = input("You didn't enter the correct parameters, try again:")
+            #end while
             
             if yesNo == "yes" or yesNo =="Yes":
                 validated = False    
             elif yesNo == "No" or yesNo =="no":
                 choice = "none"
                 print("Terminating program")
+                w = input("...")
                 
             #end if
         else:
@@ -58,12 +66,16 @@ while choice =="Iteration" or choice == "iteration":
             print("factorial of", num, "is", factI)
             factI = 1
             yesNo = input("Would you like to try a different number? [Yes/No]")
+            while not(yesNo == "yes" or yesNo =="Yes" or yesNo == "No" or yesNo =="no"):
+                yesNo = input("You didn't enter the correct parameters, try again:")
+            #end while
             
             if yesNo == "yes" or yesNo =="Yes":
                 validated = False    
             elif yesNo == "No" or yesNo =="no":
                 choice = "none"
                 print("Terminating program")
+                w = input("...")
                 
             #end if
         else:
