@@ -11,7 +11,10 @@ def fact(n):
         return n * fact(n-1)
     #end if
 #end function
-
+    
+print()
+print("===Factorial Calculating Program===")
+print()
 
 choice = input("Enter the method you want to use: [Iteration/Recursion]")
 while not (choice == "Recursion" or choice =="recursion" or choice =="Iteration" or choice == "iteration"):
@@ -28,7 +31,7 @@ while choice == "Recursion" or choice =="recursion":
             continue
         #end try
         
-        if num>0 and num<1000:
+        if num>-1 and num<1000:
             validated = True
             print("factorial of", num, "is", fact(num))
             yesNo = input("Would you like to try a different number? [Yes/No]")
@@ -58,7 +61,7 @@ while choice =="Iteration" or choice == "iteration":
             print("That wasn't an integer; Try Again!")
             continue
             #end try
-        if num>0 and num<1000:
+        if num>-1 and num<1000:
             validated = True
             for i in range(num,0,-1):
                 factI = factI * i
