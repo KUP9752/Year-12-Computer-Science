@@ -2,19 +2,25 @@
 
 sent = input("Enter sentence to be encrypted")
 enc = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-step = int(input())
+step = int(input("Enter the step shift you want"))
+print(len(sent))
+
 def cipher(n):
     for i in range(0,len(sent)):
-        index = 0
+        
         if sent[i] == " ":
-            enc[i] = " "
+            index = chr(32)
+        elif sent[i].isupper():
+            index = chr((ord(sent[i])+ n-65)%26 +65)
         else:
-            index =(((ord(sent[i])+ n)-65)%26)+65)
-            enc[i] = chr(index)
-    print(enc)
+            index = chr((ord(sent[i])+n-97)%26 + 97)
+        print(index, end='')
+        
+    
         #end if
     #next i
-#end procedure
-cipher(step)
-            
-        
+#end function
+print(cipher(step))
+
+
+
