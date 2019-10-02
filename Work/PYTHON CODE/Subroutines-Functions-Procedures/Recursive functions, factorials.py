@@ -36,7 +36,7 @@ while choice == "Recursion" or choice =="recursion":
             print("factorial of", num, "is", fact(num))
             yesNo = input("Would you like to try a different number? [Yes/No]")
             while not(yesNo == "yes" or yesNo =="Yes" or yesNo == "No" or yesNo =="no"):
-                yesNo = input("You didn't enter the correct parameters, try again:")
+                yesNo = input("You didn't enter 'Yes' or 'No', try again:")
             #end while
             
             if yesNo == "yes" or yesNo =="Yes":
@@ -70,7 +70,7 @@ while choice =="Iteration" or choice == "iteration":
             factI = 1
             yesNo = input("Would you like to try a different number? [Yes/No]")
             while not(yesNo == "yes" or yesNo =="Yes" or yesNo == "No" or yesNo =="no"):
-                yesNo = input("You didn't enter the correct parameters, try again:")
+                yesNo = input("You didn't enter 'Yes' os 'No', try again:")
             #end while
             
             if yesNo == "yes" or yesNo =="Yes":
