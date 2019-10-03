@@ -19,7 +19,8 @@ def cipher(n):
     
         #end if
     #next i
-#end function
+#end procedure
+
 print(cipher(step))
 
 
