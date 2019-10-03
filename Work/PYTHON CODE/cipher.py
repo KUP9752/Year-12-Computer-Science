@@ -1,7 +1,7 @@
 #Cipher
 
 sent = input("Enter sentence to be encrypted")
-enc = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+
 step = int(input("Enter the step shift you want"))
 print(len(sent))
 
