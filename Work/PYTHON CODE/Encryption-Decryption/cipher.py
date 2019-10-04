@@ -1,9 +1,12 @@
 #Cipher
 
-sent = input("Enter sentence to be encrypted")
+
 
 step = int(input("Enter the step shift you want"))
-print(len(sent))
+
+f = open("input.txt","rt")
+sent = f.read()
+f.close()
 
 def cipher(n):
     for i in range(0,len(sent)):
@@ -15,13 +18,19 @@ def cipher(n):
         else:
             index = chr((ord(sent[i])+n-97)%26 + 97)
         print(index, end='')
+        p = open("output.txt","wt")
+        p.write(cipher(step))
+        p.close
         
     
         #end if
     #next i
 #end procedure
 
-print(cipher(step))
+print(cipher(sent))
+
+
+
 
 
 
