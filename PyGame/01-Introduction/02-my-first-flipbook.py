@@ -38,7 +38,7 @@ while not game_over:
     # -- Game logic goes after this comment
     if circle_x_pos < 600:
         circle_x_pos = circle_x_pos + 1
-        circle_y_pos = (circle_x_pos -320)**2+100
+        circle_y_pos = int(round((1/500)*(circle_x_pos -320)**2+40))
     
     else:
         circle_x_pos = 40
