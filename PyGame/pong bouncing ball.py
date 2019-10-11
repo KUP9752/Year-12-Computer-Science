@@ -37,6 +37,7 @@ circ_y = 240
 Cdir_x = 4
 Cdir_y = 4
 
+hp_left= 3
 ### -- Game Loop
 while not game_over:
     # -- User input and controls
@@ -61,12 +62,43 @@ while not game_over:
 
             
     # -- Game logic goes after this comment
+
+
+
+
+    
     block_y = block_y + direction_y * speed
-    if circ_x != 0 + 8 and circ_x != 640-8:
-        circ_x = circ_x + Cdir_x
-    else:
+    if circ_x == 12+8 and (circ_y<=block_y+40 and circ_y>=block_y):
         Cdir_x = Cdir_x * -1
         circ_x = circ_x + (Cdir_x*2)
+    elif circ_x == 0 + 8: 
+        circ_x = 320            #//variables reset so that game restarts
+        circ_y = 240
+        direction_x = 0
+        direction_y = 0
+        Cdir_x = 4
+        Cdir_y = 4
+        
+        hp_left = hp_left -1
+        
+        if hp_left == 0:
+            game_over = True    #//ends game after losing 3 times
+        #end if  
+    else:
+        if circ_x != 0+8 and circ_x != 640-8:
+            circ_x = circ_x + Cdir_x
+        else:
+            Cdir_x = Cdir_x * -1
+            circ_x = circ_x + (Cdir_x*2)
+        #end if
+        if circ_y != 0 + 8 and circ_y != 480-8:
+            circ_y = circ_y + Cdir_y
+        else:
+            Cdir_y = Cdir_y * -1
+            circ_y = circ_y+ (Cdir_y*2)
+        #end if
+    #end if
+
         
     # -- Screen background is BLACK
     screen.fill (BLACK)
