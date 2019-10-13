@@ -23,6 +23,16 @@ screen = pygame.display.set_mode(size)
 # -- Title of new window/screen
 pygame.display.set_caption("My First Flipbook")
 
+
+#//displaying text on the screen
+font = pygame.font.Font("freesansbold.ttf",32)
+text = font.render('Game Over', True, RED, BLACK)
+textRect = text.get_rect()
+textRect.center = (320, 240)
+
+
+
+
 game_over = False
 block_x = 4
 block_y = size[1]//2
@@ -44,7 +54,7 @@ while not game_over:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game_over = True
-                            
+                           
         ### -- Keys are also game logic -- ###
                 
         elif event.type == pygame.KEYDOWN:
@@ -68,6 +78,8 @@ while not game_over:
 
     
     block_y = block_y + direction_y * speed
+    if direction_x==0 and direction_y == 0:
+            
     if circ_x == 12+8 and (circ_y<=block_y+40 and circ_y>=block_y):
         Cdir_x = Cdir_x * -1
         circ_x = circ_x + (Cdir_x*2)
@@ -83,6 +95,8 @@ while not game_over:
         
         if hp_left == 0:
             game_over = True    #//ends game after losing 3 times
+            screen.blit(text, textRect)
+            pygame.display.update() 
         #end if  
     else:
         if circ_x != 0+8 and circ_x != 640-8:
