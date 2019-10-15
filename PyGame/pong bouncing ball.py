@@ -26,7 +26,7 @@ pygame.display.set_caption("My First Flipbook")
 
 #//displaying text on the screen
 font = pygame.font.Font("freesansbold.ttf",32)
-text = font.render('Game Over', True, RED, BLACK)
+text = font.render("Game Over", True, RED, WHITE)
 textRect = text.get_rect()
 textRect.center = (320, 240)
 
@@ -34,6 +34,7 @@ textRect.center = (320, 240)
 
 
 game_over = False
+game_end = 0
 block_x = 4
 block_y = size[1]//2
 
@@ -41,19 +42,30 @@ speed = 5
 direction_x = 0
 direction_y = 0
 
+cpu_speed = 5
+
+
+cpu_block_x = 640-(4+8)
+cpu_block_y = size[1]//2
+
 circ_x = 320
 circ_y = 240
 
 Cdir_x = 4
 Cdir_y = 4
 
+ball_speed = 2
+
 hp_left= 3
+
+score_1=0
 ### -- Game Loop
 while not game_over:
     # -- User input and controls
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game_over = True
+            game_end = 1
                            
         ### -- Keys are also game logic -- ###
                 
@@ -72,18 +84,33 @@ while not game_over:
 
             
     # -- Game logic goes after this comment
+    dif_counter = score_1
+    if dif_counter == 10:
+        ball_speed = ball_speed +2
+        dif_counter = 0
 
+    #//PLAYER 1 paddle movement
+    if block_y <0:
+        block_y = 0
+    elif block_y > 440:
+        block_y = 440
+    else:
+        block_y = block_y + direction_y * speed
 
-
-
-    
-    block_y = block_y + direction_y * speed
-    
+    #//Cpu paddle movement
+    if cpu_block_y > circ_y:
+        cpu_block_y = cpu_block_y + cpu_speed *-1
+    elif cpu_block_y< circ_y:
+        cpu_block_y = cpu_block_y + cpu_speed * 1
+    #end if 
+        
             
     if circ_x == 12+8 and (circ_y<=block_y+40 and circ_y>=block_y):
         Cdir_x = Cdir_x * -1
-        circ_x = circ_x + (Cdir_x*2)
-    elif circ_x == 0 + 8: 
+        circ_x = circ_x + (Cdir_x*ball_speed)
+        score_1 +=1
+        
+    elif circ_x == 0 + 8 or circ_x==640 - 8: 
         circ_x = 320            #//variables reset so that game restarts
         circ_y = 240
         direction_x = 0
@@ -119,6 +146,7 @@ while not game_over:
 
     # -- Draw here
     pygame.draw.rect(screen, WHITE, (block_x, block_y, 8, 40))
+    pygame.draw.rect(screen, BLUE, (cpu_block_x, cpu_block_y, 8, 40))
     pygame.draw.circle(screen, RED, (circ_x, circ_y), 8, 0)
 
 
@@ -130,5 +158,15 @@ while not game_over:
     clock.tick(60)
 
 #End While - End of game loop
+if game_over ==True and game_end == 1:
+    pygame.quit()
+#end if
+    
+while game_over:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+        #end if
+    #next event
+#end while
 
-pygame.quit()
