@@ -78,7 +78,7 @@ while not game_over:
 
     
     block_y = block_y + direction_y * speed
-    if direction_x==0 and direction_y == 0:
+    
             
     if circ_x == 12+8 and (circ_y<=block_y+40 and circ_y>=block_y):
         Cdir_x = Cdir_x * -1
