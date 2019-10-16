@@ -1,4 +1,11 @@
 import pygame
+# -- Funtions
+def write_hiscore(name, score):
+    folder = open("HighScore.txt", "wt")
+    folder.write(name)
+    folder.write(score)
+    folder.close()
+#end procedure
 # -- Global Constants
 
 # -- Colours
@@ -21,7 +28,7 @@ size = (640,480)
 screen = pygame.display.set_mode(size)
 
 # -- Title of new window/screen
-pygame.display.set_caption("My First Flipbook")
+pygame.display.set_caption("Pong")
 
 
 #//displaying text on the screen
@@ -87,6 +94,7 @@ while not game_over:
     # -- Game logic goes after this comment
  
     if cpu_speed!=0:
+        
      #//Cpu paddle movement and calculations (+20 for centering the paddle) 
         if cpu_block_y+20 > circ_y:
             cpu_block_y = cpu_block_y + cpu_speed *-1
@@ -127,10 +135,8 @@ while not game_over:
         elif circ_x == 0 + 8 or circ_x==640 - 8: 
             circ_x = 320            #//variables reset so that game restarts
             circ_y = 240
-            direction_x = 0
-            direction_y = 0
-            Cdir_x = 4
-            Cdir_y = 4
+            Cdir_x = Cdir_x*-1
+            Cdir_y = Cdir_y*-1
             
             
             
@@ -140,6 +146,11 @@ while not game_over:
                 pygame.display.update()
                 print("Score of PLAYER 1:",score_1)
                 enter_name = input("Please enter your name for the scoreboard")
+                if enter_name!=" ":
+                    score_1 = str(score_1)
+                    write_hiscore(enter_name, score_1)
+                    pygame.quit()
+                #end if
             #end if  
         else:
             if circ_x != 0+8 and circ_x != 640-8:
@@ -157,6 +168,7 @@ while not game_over:
         #end if
     else:
         cpu_speed= int(input("Please enter the CPU speed you want (Higher speed, Higher difficulty)"))
+    #end if
         
     # -- Screen background is BLACK
     screen.fill (BLACK)
