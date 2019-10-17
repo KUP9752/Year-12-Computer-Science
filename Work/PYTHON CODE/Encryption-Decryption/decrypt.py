@@ -6,6 +6,8 @@
 data = "z"
 step = int(input("Enter the step of the encryption to Decrypt:   "))
 
+            #//Can't decrypt lowercase letters for some reason
+
 def cipher(n):
     for i in range(0, len(data)):
         if data[i] == " ":
