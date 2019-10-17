@@ -1,21 +1,14 @@
 import pygame
 # -- Funtions
 def write_hiscore(name, score):
-    Rfolder = open("HighScore.txt", "rt")
+    Rforder = open("HighScore.txt", "rt")
     Rscore = Rfolder.read()
-    Rlength = len(Rscore)
-    index = Rscore.find(":")
-    Rscore = Rscore[index+1:Rlength+1]
-   
-    if score>Rscore:
-        Wfolder = open("HighScore.txt", "wt")
-        Wfolder.write(name)
-        Wfolder.write(":")
-        Wfolder.write(score)
-        Wfolder.close()
-    #end if
+    Wfolder = open("HighScore.txt", "wt")
+    Wfolder.write(name)
+    Wfolder.write(":")
+    Wfolder.write(score)
+    Wfolder.close()
 #end procedure
-        
 # -- Global Constants
 
 # -- Colours
@@ -103,7 +96,7 @@ while not game_over:
             
     # -- Game logic goes after this comment
  
-    if cpu_speed!=0:
+    if cpu_speed>0 and cpu_speed<6:
         
      #//Cpu paddle movement and calculations (+20 for centering the paddle) 
         if cpu_block_y+20 > circ_y:
