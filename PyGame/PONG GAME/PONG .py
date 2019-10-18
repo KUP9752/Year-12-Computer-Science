@@ -1,4 +1,5 @@
 import pygame
+
 # -- Funtions
 def write_hiscore(name, score):
     Rforder = open("HighScore.txt", "rt")
