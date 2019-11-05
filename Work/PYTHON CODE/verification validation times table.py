@@ -1,5 +1,5 @@
 #times table with integer type check
-
+### SRC - Great
 
 
 answer = "n"
@@ -36,5 +36,7 @@ while not verified:
     #end while
     if input("Did you mean[Y/N]: " + str(rows)).lower() == "y":
         verified = True
+
+### SRC - Continue with coding conventions please
 
 
