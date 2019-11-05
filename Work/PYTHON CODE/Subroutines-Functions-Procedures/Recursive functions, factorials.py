@@ -20,7 +20,8 @@ choice = input("Enter the method you want to use: [Iteration/Recursion]")
 while not (choice == "Recursion" or choice =="recursion" or choice =="Iteration" or choice == "iteration"):
     choice = input("You didn't enter the correct parameters, try again:")
     
-
+### SRC - I like your input validation, but you could try something
+### SRC - like choice.upper() in ["RECURSION","REC"]    
 while choice == "Recursion" or choice =="recursion":
     validated = False
     while not validated:
@@ -36,6 +37,7 @@ while choice == "Recursion" or choice =="recursion":
             print("factorial of", num, "is", fact(num))
             yesNo = input("Would you like to try a different number? [Yes/No]")
             while not(yesNo == "yes" or yesNo =="Yes" or yesNo == "No" or yesNo =="no"):
+            ### SRC - while yesNo.upper() not in ["YES","NO"]:
                 yesNo = input("You didn't enter 'Yes' or 'No', try again:")
             #end while
             
