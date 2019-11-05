@@ -1,5 +1,7 @@
 #Cipher-> Encrypt
-
+### SRC - This is a good effort, but I did get some
+### strange characters with a shift of 5.
+### I couldn't get the decrypt to work.
 
 
 step = int(input("Enter the step shift you want:   "))
