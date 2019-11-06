@@ -1,3 +1,6 @@
+### SRC - Nearly there... Perhaps try and use
+### a modeling method using gravity...
+
 import pygame
 # -- Global Constants
 
