@@ -37,14 +37,23 @@ class Ball():
         self.direction = direction
 
     def move(self):
-        if self.x == 0+rad[self.num] or self.x == 640-rad[self.num] or self.y== 0+rad[self.num] or self.y == 480-rad[self.num]:  
-            self.direction = self.direction*-1
+        
+        if self.x >= -1+rad[self.num] and self.x<= 641-rad[self.num]:
+            
+            self.x = self.x + (self.direction*self.speed)               
+        else:
+            self.direction = self.direction * -1
             self.x = self.x + (self.direction*self.speed)
-            self.direction = self.direction*-1
+            
+        if self.y >= -1+rad[self.num] and self.y<= 481-rad[self.num]:
+            
             self.y = self.y + (self.direction*self.speed)
         else:
-            self.x = self.x + self.direction*self.speed
-            self.y = self.y + self.direction*self.speed
+            self.direction = self.direction * -1
+            self.y = self.y + (self.direction*self.speed)
+
+        
+            
     def draw(self):
         pygame.draw.circle(screen, RED, (self.x, self.y), rad[self.num], 0)
         
@@ -52,9 +61,9 @@ class Ball():
 direction = [-1,1]            
 balls = []
 rad = []
-for ball in range(0,5):
+for ball in range(0,10):
     rad.append(random.randint(8,24))
-    balls.append(Ball(random.randint(rad[ball], 640-rad[ball]), random.randint(rad[ball], 480-rad[ball]), random.randint(1,10), ball, random.choice(direction)))
+    balls.append(Ball(random.randint(rad[ball], 640-rad[ball]), random.randint(rad[ball], 480-rad[ball]), random.randint(1,5), ball, random.choice(direction)))
 #next ball
 
 game_over = False
