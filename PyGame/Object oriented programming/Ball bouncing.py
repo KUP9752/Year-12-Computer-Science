@@ -1,3 +1,5 @@
+### SRC - Nearly there, just need to fix the direction and add colour attribute.
+
 import pygame
 import random
 
@@ -37,6 +39,8 @@ class Ball():
         self.direction = direction
 
     def move(self):
+        ### SRC - The problem here is that you only have one direction attribute...
+        ### The ball can be moving +ve in x but -ve in y
         
         if self.x >= -1+rad[self.num] and self.x<= 641-rad[self.num]:
             
