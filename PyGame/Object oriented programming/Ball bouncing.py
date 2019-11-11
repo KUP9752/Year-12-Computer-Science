@@ -11,6 +11,12 @@ WHITE = (255,255,255)
 BLUE = (50,50,255)
 YELLOW = (255,255,0)
 RED = (255,0,0)
+GREEN = (46,204,113)
+ORANGE = (211,84,0)
+PURPLE = (125,60,152)
+AQUA = (22,160,133)
+PINK = (255,89,222)
+COLOUR = [WHITE,BLUE,YELLOW,RED,GREEN,ORANGE,PURPLE,AQUA,PINK]
 
 # -- Initialise PyGame
 pygame.init()
@@ -31,12 +37,14 @@ pygame.display.set_caption("My First Flipbook")
 # -- My Classes
 
 class Ball():
-    def __init__(self, x, y, speed,num, direction):
+    def __init__(self, x, y, speed,num, x_direction, y_direction,colour):
         self.x = x
         self.y = y
         self.speed = speed
         self.num = num
-        self.direction = direction
+        self.x_direction = x_direction
+        self.y_direction = y_direction
+        self.colour = colour
 
     def move(self):
         ### SRC - The problem here is that you only have one direction attribute...
@@ -44,22 +52,22 @@ class Ball():
         
         if self.x >= -1+rad[self.num] and self.x<= 641-rad[self.num]:
             
-            self.x = self.x + (self.direction*self.speed)               
+            self.x = self.x + (self.x_direction*self.speed)               
         else:
-            self.direction = self.direction * -1
-            self.x = self.x + (self.direction*self.speed)
+            self.x_direction = self.x_direction * -1
+            self.x = self.x + (self.x_direction*self.speed)
             
         if self.y >= -1+rad[self.num] and self.y<= 481-rad[self.num]:
             
-            self.y = self.y + (self.direction*self.speed)
+            self.y = self.y + (self.y_direction*self.speed)
         else:
-            self.direction = self.direction * -1
-            self.y = self.y + (self.direction*self.speed)
+            self.y_direction = self.y_direction * -1
+            self.y = self.y + (self.y_direction*self.speed)
 
         
             
     def draw(self):
-        pygame.draw.circle(screen, RED, (self.x, self.y), rad[self.num], 0)
+        pygame.draw.circle(screen, self.colour, (self.x, self.y), rad[self.num], 0)
         
     
 direction = [-1,1]            
@@ -67,7 +75,7 @@ balls = []
 rad = []
 for ball in range(0,10):
     rad.append(random.randint(8,24))
-    balls.append(Ball(random.randint(rad[ball], 640-rad[ball]), random.randint(rad[ball], 480-rad[ball]), random.randint(1,5), ball, random.choice(direction)))
+    balls.append(Ball(random.randint(rad[ball], 640-rad[ball]), random.randint(rad[ball], 480-rad[ball]), random.randint(1,5), ball, random.choice(direction),random.choice(direction),random.choice(COLOUR)))
 #next ball
 
 game_over = False
