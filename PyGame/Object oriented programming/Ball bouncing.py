@@ -31,7 +31,7 @@ size = (640,480)
 screen = pygame.display.set_mode(size)
 
 # -- Title of new window/screen
-pygame.display.set_caption("My First Flipbook")
+pygame.display.set_caption("Bouncing Ball")
 
 
 # -- My Classes
