@@ -1,0 +1,61 @@
+Object oriented
+
+
+==Class==
+
+--> A class is a template that has methods and attributes that determine the properties and behaviour of the object that is created with that class.
+
+==Object==
+
+--> the instance of the class, created using the  attributes of a class
+
+
+==Encapsulation==
+
+-> "shell around the code" hides the implementation from the user, but the shell can be reached and manipulated with the created methods, '.move()' 
+
+which is also abstraction as the user is not seeing how the methods are implemented they just see the code and commands
+
+classes have constructors "___init__"
+
+==Inheritance==
+
+--> using the attributes and methods of a class in another class. SUPER class is the one that is being copied into the SUB, the SUB inherits the methods of SUPER.
+EX: 	Class Ball():
+		__init__(...,...,...)
+	...
+	def ball.move():
+		...
+
+	class Wooden_Ball(Ball):
+		def __init__(self, ...,...,(all attributes from Ball()).., seam (new attribute),..)
+			super.init__(...,...,...)	
+			self.seam = seam
+			self.spin =0
+			self.cover "leather" #// Hard coded method
+		def spin.calc(self):  #//new method
+			...
+	**	def ball.move() : #//will override the method in the super class
+			...
+		def super.move():	#//will call the method in the super class, can be edited
+			...
+All the methods/behaviours are copied exactly, so Wooden_Ball can do the ball.move. HOWEVER if another ball.move is added the method in the SUPER class will be overridden. **Also we can use the method in the super class to call it and use it again, or edit it in the SUB class.
+
+
+
+==Sprite==
+
+--> hard coded in the game as a class, "moving objects, pre-created images rather than shapes".
+it is an example of abstraction as we don't know how it is implemented.
+It has some pre-made methods like update() (to draw it onto the screen), and most importantly collision detection so it can detect if images collide
+
+
+
+
+
+
+
+
+
+
+
