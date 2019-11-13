@@ -3,7 +3,7 @@ Object oriented
 
 ==Class==
 
---> A class is a template that has methods and attributes that determine the properties and behaviour of the object that is created with that class.
+--> A class is a template (of an object) that has METHODS and ATTRIBUTES that determine the properties and behaviour of the object that is created with that class.
 
 ==Object==
 
