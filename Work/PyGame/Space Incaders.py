@@ -33,7 +33,7 @@ size = (640,480)
 screen = pygame.display.set_mode(size)
 
 # -- Title of new window/screen
-pygame.display.set_caption("Bouncing Ball")
+pygame.display.set_caption("Space Invaders")
 
 
 # -- My Classes
@@ -73,7 +73,7 @@ class Player(pygame.sprite.Sprite):
     
             
    
-        
+#Sprite Groups       
 all_sprites_group = pygame.sprite.Group()
 invader_group = pygame.sprite.Group()
 
