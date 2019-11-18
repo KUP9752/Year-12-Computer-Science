@@ -46,11 +46,11 @@ class Invader(pygame.sprite.Sprite):
         self.image = pygame.Surface([width,height])
         self.image.fill(colour)
         self.rect = self.image.get_rect()
-        self.rect.x = random.randrange(-50,0)
-        self.rect.y = random.randrange(200,240)
+        self.rect.x = random.randrange(0,640)
+        self.rect.y = random.randrange(-50,0)
 
     def update(self):
-        self.rect.x = self.rect.x + self.speed
+        self.rect.y = self.rect.y + self.speed
         
 class Player(pygame.sprite.Sprite):
     def __init__(self, colour, width, height):
@@ -63,7 +63,8 @@ class Player(pygame.sprite.Sprite):
        self.rect.y = (480-height)
 
     def player_set_speed(val):
-        self.rect.x += val
+        self.speed= val
+        self.rect.x += self.speed
         
        
         
