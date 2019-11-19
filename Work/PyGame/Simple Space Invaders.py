@@ -70,18 +70,6 @@ class Player(pygame.sprite.Sprite):
         elif self.rect.x >= 630:
             self.rect.x = 630
         #endwhile
-class Bullet(pygame.sprite.Sprite):
-    def __init__(self, colour, width, height):
-        super().__init__()
-        self.speed = -10
-        self.image = pygame.Surface([width,height])
-        self.image.fill(colour)
-        self.rect = self.image.get_rect()
-        self.rect.x = player.rect.x + 3 
-        self.rect.y = player.rect.y
-
-    def update(self):
-        self.rect.y += self.speed
         
        
         
@@ -94,7 +82,7 @@ class Bullet(pygame.sprite.Sprite):
 #Sprite Groups       
 all_sprites_group = pygame.sprite.Group()
 invader_group = pygame.sprite.Group()
-bullet_group = pygame.sprite.Group()
+
 #add player
 player = Player(YELLOW,10,10)
 all_sprites_group.add(player)
@@ -105,11 +93,7 @@ for i in range(10):
     invader_group.add(invader)
     all_sprites_group.add(invader)
 #next i
-
-
-
 game_over = False
-
 
 ### -- Game Loop
 while not game_over:
@@ -119,14 +103,9 @@ while not game_over:
             game_over = True
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                player.player_set_speed(-10)
+                player.player_set_speed(-20)
             elif event.key == pygame.K_RIGHT:
-                player.player_set_speed(1
-                                        0)
-            elif event.key == pygame.K_SPACE:
-                bullet = Bullet(RED,6,4)
-                bullet_group.add(bullet)
-                all_sprites_group.add(bullet)
+                player.player_set_speed(20)
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                 player.player_set_speed(0)
@@ -134,11 +113,8 @@ while not game_over:
     
                  
     # -- Game logic goes after this comment
-    all_sprites_group.update()
-    bullet_hit_group = pygame.sprite.groupcollide(bullet_group,invader_group,True,True)
     player_hit_group = pygame.sprite.spritecollide(player,invader_group,True)
-    
-    
+    all_sprites_group.update()
     # -- Screen background is BLACK
     screen.fill (BLACK)
 
@@ -152,11 +128,33 @@ while not game_over:
     pygame.display.flip()
 
     # - The clock ticks over
-    clock.tick(30)
+    clock.tick(20)
 
 #End While - End of game loop
 
 pygame.quit()
 
 ##while not game_over:
+##    # -- User input and controls
+##    for event in pygame.event.get():
+##        if event.type == pygame.QUIT:
+##            game_over = True
+##                            
+##        ### -- Keys are also game logic -- ###
+##                
+##        elif event.type == pygame.KEYDOWN:
+##            if event.key == pygame.K_UP:
+##                direction_y = -1
+##            elif event.key == pygame.K_DOWN:
+##                direction_y = 1
+##            elif event.key == pygame.K_RIGHT:
+##                direction_x = 1
+##            elif event.key == pygame.K_LEFT:
+##                direction_x = -1
+##        elif event.type == pygame.KEYUP:
+##            direction_x, direction_y = 0, 0
+##            
+##            #End If
+##        #End If
+##    #Next event
 
