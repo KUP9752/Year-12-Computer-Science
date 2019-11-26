@@ -40,7 +40,7 @@ pygame.display.set_caption("Space Invaders")
 
         
 class Invader(pygame.sprite.Sprite):
-    def __init__(self,colour, width,height,speed):
+    def __init__(self,colour, width,height,speed,):
         super().__init__()
         self.speed = speed
         self.image = pygame.Surface([width,height])
@@ -55,21 +55,23 @@ class Invader(pygame.sprite.Sprite):
 class Player(pygame.sprite.Sprite):
     def __init__(self, colour, width, height):
        super().__init__()
+       self.bullet_count = 10
        self.speed = 0
        self.image = pygame.Surface([width,height])
        self.image.fill(colour)
        self.rect = self.image.get_rect()
        self.rect.x = 320
        self.rect.y = (480-height)
-
+       
+    def bullet_decrease(self):
+        self.bullet_count -= 1
+        
     def player_set_speed(self,val):
         self.speed = val
+        
+    def update(self):
         self.rect.x += self.speed
-        if self.rect.x <= 0:
-            self.rect.x = 0
-        elif self.rect.x >= 630:
-            self.rect.x = 630
-        #endwhile
+        
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, colour, width, height):
         super().__init__()
@@ -83,6 +85,15 @@ class Bullet(pygame.sprite.Sprite):
     def update(self):
         self.rect.y += self.speed
         
+class Wall(pygame.sprite.Sprite):
+    def __init__(self,colour,x,y):
+        super().__init__()
+        self.image = pygame.Surface([1,480])
+        self.rect = self.image.get_rect()
+        self.image.fill(colour)
+        self.rect.x = x
+        self.rect.y = y
+    
        
         
        
@@ -91,10 +102,20 @@ class Bullet(pygame.sprite.Sprite):
     
             
    
-#Sprite Groups       
+#Sprite Groups
+
 all_sprites_group = pygame.sprite.Group()
 invader_group = pygame.sprite.Group()
 bullet_group = pygame.sprite.Group()
+wall_group =pygame.sprite.Group()
+
+#set walls
+wall = Wall(RED,-1,0)
+wall1 = Wall(RED, 641,0)
+wall_group.add(wall)
+wall_group.add(wall1)
+all_sprites_group.add(wall)
+all_sprites_group.add(wall1)
 #add player
 player = Player(YELLOW,10,10)
 all_sprites_group.add(player)
@@ -119,14 +140,18 @@ while not game_over:
             game_over = True
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                player.player_set_speed(-10)
+                player.player_set_speed(-5)
             elif event.key == pygame.K_RIGHT:
-                player.player_set_speed(1
-                                        0)
+                player.player_set_speed(5)
             elif event.key == pygame.K_SPACE:
-                bullet = Bullet(RED,6,4)
-                bullet_group.add(bullet)
-                all_sprites_group.add(bullet)
+                if player.bullet_count !=0:
+                    bullet = Bullet(RED,6,4)
+                    bullet_group.add(bullet)
+                    all_sprites_group.add(bullet)
+                    player.bullet_decrease()
+                else:
+                    print("no bullets left")
+                    
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                 player.player_set_speed(0)
