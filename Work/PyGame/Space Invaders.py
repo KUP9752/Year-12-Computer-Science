@@ -41,7 +41,9 @@ invader_y_coor = [50,50,50,50,50,50,50,50,50,50,50,50,80,80,80,80,80,80,80,80,80
 
         
 class Invader(pygame.sprite.Sprite):
+    x_dir = 1
     def __init__(self,colour,x,y, width,height,speed,):
+        
         super().__init__()
         self.speed = speed
         self.image = pygame.Surface([width,height])
@@ -51,12 +53,24 @@ class Invader(pygame.sprite.Sprite):
         self.rect.y = y
 
     def update(self):
-        self.rect.y = self.rect.y + self.speed
+        # wall_hit_group = pygame.sprite.groupcollide(self,wall_group,False,False)
+        self.rect.x = self.rect.x +self.speed * self.x_dir
+       
+        if self.rect.x > 630:
+            self.rect.y+= 40
+            self.x_dir = -1
+        elif self.rect.x < 0:
+            self.rect.y = self.rect.y + 40
+            self.x_dir = 1
+        elif self.rect.y > 480:
+            player.lives
         
 class Player(pygame.sprite.Sprite):
     def __init__(self, colour, width, height):
        super().__init__()
-       self.bullet_count = 10
+       self.lives = 5
+       self.score = 0
+       self.bullet_count = 30
        self.speed = 0
        self.image = pygame.Surface([width,height])
        self.image.fill(colour)
@@ -72,6 +86,12 @@ class Player(pygame.sprite.Sprite):
 
     def get_bullet_count(self):
         return self.bullet_count
+
+    def get_lives(self):
+        return self.lives
+
+    def decrease_lives(self):
+        self.lives -= 1
         
     def update(self):
         self.rect.x += self.speed
@@ -108,8 +128,7 @@ class Wall(pygame.sprite.Sprite):
         self.rect.y = y
     
        
-        
-       
+
        
 
 
@@ -124,12 +143,12 @@ bullet_group = pygame.sprite.Group()
 wall_group =pygame.sprite.Group()
 
 #set walls
-wall = Wall(RED,-1,0)
-wall1 = Wall(RED, 641,0)
-wall_group.add(wall)
-wall_group.add(wall1)
-all_sprites_group.add(wall)
-all_sprites_group.add(wall1)
+wallL = Wall(RED,-1,0)
+wallR = Wall(RED, 641,0)
+wall_group.add(wallL)
+wall_group.add(wallR)
+all_sprites_group.add(wallL)
+all_sprites_group.add(wallR)
 
 #add player
 player = Player(YELLOW,10,10)
@@ -164,9 +183,9 @@ while not game_over:
                     bullet_group.add(bullet)
                     all_sprites_group.add(bullet)
                     player.bullet_decrease()
-                else:
-                    print("no bullets left")
+                
                     
+
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                 player.player_set_speed(0)
@@ -179,16 +198,28 @@ while not game_over:
     player_hit_group = pygame.sprite.spritecollide(player,invader_group,True)
     
     # -- Text
-    font = pygame.font.Font('freesansbold.ttf',12)
-    count= player.get_bullet_count()
-    textBullets = font.render('Bullets:' + str(count) ,False,WHITE)
+    font = pygame.font.Font('freesansbold.ttf',15)
+    textBullets = font.render('Bullets:' + str(player.get_bullet_count()
+                                               ) ,False,WHITE)
+    textLives = font.render('Lives:' + str(player.get_lives()),False,WHITE)
+    textLivesRect = textLives.get_rect()
+    textLivesRect.center = (50,30)
     textRect = textBullets.get_rect()
     textRect.center = (50,50)
+    bigfont = pygame.font.Font('freesansbold.ttf',32)
+    noBullets =bigfont.render('No Bullets Left',False,RED)
+    noBulletRect = noBullets.get_rect()
+    noBulletRect.center = (320,200)
+    
+    
 
     # -- Screen background is BLACK
     screen.fill (BLACK)
     # -- Display text
     screen.blit(textBullets,textRect)
+    screen.blit(textLives, textLivesRect)
+    if player.bullet_count ==0:
+        screen.blit(noBullets,noBulletRect)
     # -- Draw here
     all_sprites_group.draw(screen)
 
