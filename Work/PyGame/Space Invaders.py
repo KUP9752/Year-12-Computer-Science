@@ -35,19 +35,20 @@ screen = pygame.display.set_mode(size)
 # -- Title of new window/screen
 pygame.display.set_caption("Space Invaders")
 
-
+invader_x_coor = [40,90,140,190,240,290,340,390,440,490,540,590, 40,90,140,190,240,290,340,390,440,490,540,590]
+invader_y_coor = [50,50,50,50,50,50,50,50,50,50,50,50,80,80,80,80,80,80,80,80,80,80,80,80]
 # -- My Classes
 
         
 class Invader(pygame.sprite.Sprite):
-    def __init__(self,colour, width,height,speed,):
+    def __init__(self,colour,x,y, width,height,speed,):
         super().__init__()
         self.speed = speed
         self.image = pygame.Surface([width,height])
         self.image.fill(colour)
         self.rect = self.image.get_rect()
-        self.rect.x = random.randrange(0,640)
-        self.rect.y = random.randrange(-50,0)
+        self.rect.x = x
+        self.rect.y = y
 
     def update(self):
         self.rect.y = self.rect.y + self.speed
@@ -68,14 +69,21 @@ class Player(pygame.sprite.Sprite):
         
     def player_set_speed(self,val):
         self.speed = val
+
+    def get_bullet_count(self):
+        return self.bullet_count
         
     def update(self):
         self.rect.x += self.speed
+
+        if self.rect.x > 630 or self.rect.x<0:
+            self.rect.x -= self.speed
+        #end if
         
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, colour, width, height):
         super().__init__()
-        self.speed = -10
+        self.speed = -5
         self.image = pygame.Surface([width,height])
         self.image.fill(colour)
         self.rect = self.image.get_rect()
@@ -84,6 +92,11 @@ class Bullet(pygame.sprite.Sprite):
 
     def update(self):
         self.rect.y += self.speed
+
+        
+        
+                
+                    
         
 class Wall(pygame.sprite.Sprite):
     def __init__(self,colour,x,y):
@@ -98,6 +111,7 @@ class Wall(pygame.sprite.Sprite):
         
        
        
+
 
     
             
@@ -116,13 +130,14 @@ wall_group.add(wall)
 wall_group.add(wall1)
 all_sprites_group.add(wall)
 all_sprites_group.add(wall1)
+
 #add player
 player = Player(YELLOW,10,10)
 all_sprites_group.add(player)
 
 #add 10 invaders
-for i in range(10):
-    invader = Invader(AQUA,10,10,1) #10px x 10px
+for i in range(24):
+    invader = Invader(AQUA,invader_x_coor[i],invader_y_coor[i],10,10,1) #10px x 10px
     invader_group.add(invader)
     all_sprites_group.add(invader)
 #next i
@@ -163,10 +178,17 @@ while not game_over:
     bullet_hit_group = pygame.sprite.groupcollide(bullet_group,invader_group,True,True)
     player_hit_group = pygame.sprite.spritecollide(player,invader_group,True)
     
-    
+    # -- Text
+    font = pygame.font.Font('freesansbold.ttf',12)
+    count= player.get_bullet_count()
+    textBullets = font.render('Bullets:' + str(count) ,False,WHITE)
+    textRect = textBullets.get_rect()
+    textRect.center = (50,50)
+
     # -- Screen background is BLACK
     screen.fill (BLACK)
-
+    # -- Display text
+    screen.blit(textBullets,textRect)
     # -- Draw here
     all_sprites_group.draw(screen)
 
@@ -177,7 +199,7 @@ while not game_over:
     pygame.display.flip()
 
     # - The clock ticks over
-    clock.tick(30)
+    clock.tick(60)
 
 #End While - End of game loop
 
