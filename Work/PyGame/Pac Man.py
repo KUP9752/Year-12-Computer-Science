@@ -29,30 +29,45 @@ clock = pygame.time.Clock()
 
 # -- Blank Screen
 
-size = (640,480)
+size = (500,500)
 screen = pygame.display.set_mode(size)
 
 # -- Title of new window/screen
-pygame.display.set_caption("Space Invaders")
+pygame.display.set_caption("PAC MAN")
 
 # -- My Classes
 
         
 
-class Wall(pygame.sprite.Sprite):
-    def __init__():
+##class Wall(pygame.sprite.Sprite):
+##    def __init__():
         
 
 
 
 
 class PacMan(pygame.sprite.Sprite):
-    def __init__(self,colour):
-        super().__init__()
+    def __init__(self,x,y):
+        self.surface = screen
+        self.colour = YELLOW
+        self.x = x
+        self.y = y
+        self.radius = 5
+        self.direction_x = 0
+        self.direction_y = 0
+
+    def create_pac(self):
+        self.character = pygame.draw.circle(self.surface,self.colour, (self.x,self.y), self.radius, 0)
+
+    def direction_x(self,val):
+        val = int(val)
+        self.direction_x = val
+    def direction_y(self,val):
+        val = int(val)
+        self.direction_y = val
     
-        
 
-
+player = PacMan(250,300)
 
 
 
@@ -70,51 +85,34 @@ while not game_over:
         elif event.type == pygame.KEYDOWN:
             
             if event.key == pygame.K_LEFT:
-               
+               player.direction_x(-1)
             elif event.key == pygame.K_RIGHT:
-
+                player.direction_x(1)
             elif event.key == pygame.K_UP:
-
+                player.direction_y(-1)
             elif event.key == pygame.K_DOWN:
-
+                player.direction_y(1)
             #end if
         elif event.type == pygame.KEYUP:
-            
+            player.direction_x(0)
+            player.direction_y(0)
                 
         #End If
     
                  
     # -- Game logic goes after this comment
-    all_sprites_group.update()
-    bullet_hit_group = pygame.sprite.groupcollide(bullet_group,invader_group,True,True)
-    player_hit_group = pygame.sprite.spritecollide(player,invader_group,True)
-    
+   
     # -- Text
     font = pygame.font.Font('freesansbold.ttf',15)
-    textBullets = font.render('Bullets:' + str(player.get_bullet_count()
-                                               ) ,False,WHITE)
-    textLives = font.render('Lives:' + str(player.get_lives()),False,WHITE)
-    textLivesRect = textLives.get_rect()
-    textLivesRect.center = (50,30)
-    textRect = textBullets.get_rect()
-    textRect.center = (50,50)
-    bigfont = pygame.font.Font('freesansbold.ttf',32)
-    noBullets =bigfont.render('No Bullets Left',False,RED)
-    noBulletRect = noBullets.get_rect()
-    noBulletRect.center = (320,200)
-    
+        
     
 
     # -- Screen background is BLACK
-    screen.fill (BLACK)
+    screen.fill(BLACK)
     # -- Display text
-    screen.blit(textBullets,textRect)
-    screen.blit(textLives, textLivesRect)
-    if player.bullet_count ==0:
-        screen.blit(noBullets,noBulletRect)
+    
     # -- Draw here
-    all_sprites_group.draw(screen)
-
+    player.create_pac()
     
 
 
