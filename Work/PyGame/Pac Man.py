@@ -35,18 +35,22 @@ screen = pygame.display.set_mode(size)
 # -- Title of new window/screen
 pygame.display.set_caption("Space Invaders")
 
-invader_x_coor = [40,90,140,190,240,290,340,390,440,490,540,590, 40,90,140,190,240,290,340,390,440,490,540,590]
-invader_y_coor = [50,50,50,50,50,50,50,50,50,50,50,50,80,80,80,80,80,80,80,80,80,80,80,80]
 # -- My Classes
 
         
 
-class MazeBlock(pygame.sprite.Sprite):
+class Wall(pygame.sprite.Sprite):
+    def __init__():
+        
 
 
 
 
 class PacMan(pygame.sprite.Sprite):
+    def __init__(self,colour):
+        super().__init__()
+    
+        
 
 
 
@@ -64,13 +68,19 @@ while not game_over:
         if event.type == pygame.QUIT:
             game_over = True
         elif event.type == pygame.KEYDOWN:
+            
             if event.key == pygame.K_LEFT:
-                player.player_set_speed(-5)
-            elif event.key == pygame.K_RIGHT
+               
+            elif event.key == pygame.K_RIGHT:
 
+            elif event.key == pygame.K_UP:
+
+            elif event.key == pygame.K_DOWN:
+
+            #end if
         elif event.type == pygame.KEYUP:
             
-                player.player_set_speed(0)
+                
         #End If
     
                  
