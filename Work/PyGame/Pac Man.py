@@ -3,6 +3,8 @@
 import pygame
 import random
 import math
+import json
+
 
 # -- Global Constants
 
@@ -35,12 +37,28 @@ screen = pygame.display.set_mode(size)
 # -- Title of new window/screen
 pygame.display.set_caption("PAC MAN")
 
+
+# Maze Generation from json file
+f = open('maze.txt','rt')
+maze = f.read()
+f.close()
+print(maze)
+print(maze[27])
+
 # -- My Classes
 
-        
-
 ##class Wall(pygame.sprite.Sprite):
-##    def __init__():
+##    def __init__(self,x,y):
+##        #self.colour = BLUE
+##        #self.w= 20
+##        #self.h= 20
+##        self.image= pygame.Surface(20,20)
+##        self.image.fill = BLUE
+##        self.rect=self.image.get_rect()
+##        self.rect.x = x
+##        self.rect.h = y
+##    def update(self):
+        
         
 
 
@@ -52,27 +70,31 @@ class PacMan(pygame.sprite.Sprite):
         self.colour = YELLOW
         self.x = x
         self.y = y
-        self.radius = 5
+        self.radius = 10
         self.direction_x = 0
         self.direction_y = 0
 
     def create_pac(self):
         self.character = pygame.draw.circle(self.surface,self.colour, (self.x,self.y), self.radius, 0)
 
-    def direction_x(self,val):
-        val = int(val)
+    def set_direction_x(self,val):
+        
         self.direction_x = val
-    def direction_y(self,val):
-        val = int(val)
+    def set_direction_y(self,val):
         self.direction_y = val
-    
+##    def update(self):
+##        if (self.x>= 5 and self.x<= 945) and (self.y >= 5 and self.y<= 495):
+##            if self.direction
+
 
 player = PacMan(250,300)
 
 
+#Sprite groups
+all_sprites_group = pygame.sprite.Group()
 
+#all_sprites_group.add(player)  ====> This code doesn't work
 
-    
 game_over = False
 
 
@@ -85,23 +107,23 @@ while not game_over:
         elif event.type == pygame.KEYDOWN:
             
             if event.key == pygame.K_LEFT:
-               player.direction_x(-1)
+               player.set_direction_x(-1)
             elif event.key == pygame.K_RIGHT:
-                player.direction_x(1)
+                player.set_direction_x(1)
             elif event.key == pygame.K_UP:
-                player.direction_y(-1)
+                player.set_direction_y(-1)
             elif event.key == pygame.K_DOWN:
-                player.direction_y(1)
+                player.set_direction_y(1)
             #end if
         elif event.type == pygame.KEYUP:
-            player.direction_x(0)
-            player.direction_y(0)
+            player.set_direction_x(0)
+            player.set_direction_y(0)
                 
         #End If
     
                  
     # -- Game logic goes after this comment
-   
+    
     # -- Text
     font = pygame.font.Font('freesansbold.ttf',15)
         
