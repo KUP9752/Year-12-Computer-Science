@@ -45,19 +45,22 @@ f.close()
 print(maze)
 print(maze[27])
 
+
+    
+
 # -- My Classes
 
-##class Wall(pygame.sprite.Sprite):
-##    def __init__(self,x,y):
-##        #self.colour = BLUE
-##        #self.w= 20
-##        #self.h= 20
-##        self.image= pygame.Surface(20,20)
-##        self.image.fill = BLUE
-##        self.rect=self.image.get_rect()
-##        self.rect.x = x
-##        self.rect.h = y
-##    def update(self):
+class Wall(pygame.sprite.Sprite):
+    def __init__(self,x,y):
+        #self.colour = BLUE
+        #self.w= 20
+        #self.h= 20
+        self.image= pygame.Surface(20,20)
+        self.image.fill = BLUE
+        self.rect=self.image.get_rect()
+        self.rect.x = x
+        self.rect.h = y
+    #def update(self):
         
         
 
@@ -89,6 +92,10 @@ class PacMan(pygame.sprite.Sprite):
 
 player = PacMan(250,300)
 
+for index in range(0,len(maze)):
+    wall = Wall(int(index//25),int(index % 25))
+    
+#next index
 
 #Sprite groups
 all_sprites_group = pygame.sprite.Group()
