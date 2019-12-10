@@ -75,8 +75,8 @@ class PacMan(pygame.sprite.Sprite):
         super().__init__()
         self.surface = screen
         self.colour = YELLOW
-        self.x = x
-        self.y = y
+        self.x = 12*20+10
+        self.y = 16*20-10
         self.radius = 10
         self.direction_x = 0
         self.direction_y = 0
@@ -105,7 +105,7 @@ for y in range(len(maze)):
             wall = Wall(x*20,y*20)
             wall_group.add(wall)
             all_sprites_group.add(wall)
-            print(x)
+            
         
     
 #next index
@@ -154,7 +154,7 @@ while not game_over:
     # -- Display text
     
     # -- Draw here
-    #player.create_pac()
+    player.create_pac()
     wall_group.draw(screen)
 
 
