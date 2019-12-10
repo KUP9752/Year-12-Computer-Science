@@ -39,11 +39,10 @@ pygame.display.set_caption("PAC MAN")
 
 
 # Maze Generation from json file
-f = open('maze.txt','rt')
-maze = f.read()
+f = open('maze.json','rt')
+maze = json.load(f)
 f.close()
 print(maze)
-print(maze[27])
 
 
     
@@ -52,16 +51,20 @@ print(maze[27])
 
 class Wall(pygame.sprite.Sprite):
     def __init__(self,x,y):
+        super().__init__()
         #self.colour = BLUE
         #self.w= 20
         #self.h= 20
-        self.image= pygame.Surface(20,20)
-        self.image.fill = BLUE
-        self.rect=self.image.get_rect()
+        self.image= pygame.Surface([20,20])
+        self.image.fill(BLUE)
+        self.rect = self.image.get_rect()
         self.rect.x = x
-        self.rect.h = y
-    #def update(self):
+        self.rect.y = y
         
+##    def update(self):
+##        self.rect.x = self.rect.x
+##        self.rect.y = self.rect.y
+##        
         
 
 
@@ -69,6 +72,7 @@ class Wall(pygame.sprite.Sprite):
 
 class PacMan(pygame.sprite.Sprite):
     def __init__(self,x,y):
+        super().__init__()
         self.surface = screen
         self.colour = YELLOW
         self.x = x
@@ -89,18 +93,26 @@ class PacMan(pygame.sprite.Sprite):
 ##        if (self.x>= 5 and self.x<= 945) and (self.y >= 5 and self.y<= 495):
 ##            if self.direction
 
+#Sprite groups
+all_sprites_group = pygame.sprite.Group()
+wall_group = pygame.sprite.Group()
 
 player = PacMan(250,300)
 
-for index in range(0,len(maze)):
-    wall = Wall(int(index//25),int(index % 25))
+for y in range(len(maze)):
+    for x in range(len(maze[y])):
+        if maze[y][x] == 1:
+            wall = Wall(x*20,y*20)
+            wall_group.add(wall)
+            all_sprites_group.add(wall)
+            print(x)
+        
     
 #next index
 
-#Sprite groups
-all_sprites_group = pygame.sprite.Group()
 
-#all_sprites_group.add(player)  ====> This code doesn't work
+
+all_sprites_group.add(player) 
 
 game_over = False
 
@@ -108,6 +120,7 @@ game_over = False
 ### -- Game Loop
 while not game_over:
     # -- User input and controls
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             game_over = True
@@ -130,7 +143,7 @@ while not game_over:
     
                  
     # -- Game logic goes after this comment
-    
+    all_sprites_group.update()
     # -- Text
     font = pygame.font.Font('freesansbold.ttf',15)
         
@@ -141,8 +154,8 @@ while not game_over:
     # -- Display text
     
     # -- Draw here
-    player.create_pac()
-    
+    #player.create_pac()
+    wall_group.draw(screen)
 
 
     # -- flip display to reveal new position of objects
