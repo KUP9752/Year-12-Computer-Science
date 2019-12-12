@@ -42,7 +42,7 @@ pygame.display.set_caption("PAC MAN")
 f = open('maze.json','rt')
 maze = json.load(f)
 f.close()
-print(maze)
+
 
 
     
@@ -73,31 +73,51 @@ class Wall(pygame.sprite.Sprite):
 class PacMan(pygame.sprite.Sprite):
     def __init__(self,x,y):
         super().__init__()
+        self.speed = 2
         self.surface = screen
         self.colour = YELLOW
-        self.x = 12*20+10
-        self.y = 16*20-10
-        self.radius = 10
+        self.image = pygame.Surface([10,10])
+        self.image.fill(YELLOW)
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
         self.direction_x = 0
-        self.direction_y = 0
+        self.direction_y=0
+        
 
-    def create_pac(self):
-        self.character = pygame.draw.circle(self.surface,self.colour, (self.x,self.y), self.radius, 0)
+  
+        
 
     def set_direction_x(self,val):
         
         self.direction_x = val
+
+
+        
     def set_direction_y(self,val):
         self.direction_y = val
-##    def update(self):
-##        if (self.x>= 5 and self.x<= 945) and (self.y >= 5 and self.y<= 495):
-##            if self.direction
+
+    def update(self):
+        self.rect.x += self.direction_x*self.speed
+        self.rect.y += self.direction_y*self.speed
+
+        if self.rect.y <=0 and (self.rect.x>=240 and self.rect.x<=260):
+            self.rect.y = 490
+        elif self.rect.y>=500 and (self.rect.x>=240 and self.rect.x<=260):
+            self.rect.y = 0
+        elif (self.rect.y>=240 and self.rect.y<=260) and self.rect.x<=0:
+           self.rect.x =490
+        elif (self.rect.y>=240 and self.rect.y<=260) and self.rect.x>=500:
+            self.rect.x =0
+        
+
+
 
 #Sprite groups
 all_sprites_group = pygame.sprite.Group()
 wall_group = pygame.sprite.Group()
 
-player = PacMan(250,300)
+player = PacMan(250,305)
 
 for y in range(len(maze)):
     for x in range(len(maze[y])):
@@ -127,23 +147,25 @@ while not game_over:
         elif event.type == pygame.KEYDOWN:
             
             if event.key == pygame.K_LEFT:
-               player.set_direction_x(-1)
+                player.set_direction_y(0)
+                player.set_direction_x(-1)
             elif event.key == pygame.K_RIGHT:
+                player.set_direction_y(0)
                 player.set_direction_x(1)
             elif event.key == pygame.K_UP:
+                player.set_direction_x(0)
                 player.set_direction_y(-1)
             elif event.key == pygame.K_DOWN:
+                player.set_direction_x(0)
                 player.set_direction_y(1)
             #end if
-        elif event.type == pygame.KEYUP:
-            player.set_direction_x(0)
-            player.set_direction_y(0)
-                
-        #End If
+
     
                  
     # -- Game logic goes after this comment
     all_sprites_group.update()
+
+    
     # -- Text
     font = pygame.font.Font('freesansbold.ttf',15)
         
@@ -154,8 +176,8 @@ while not game_over:
     # -- Display text
     
     # -- Draw here
-    player.create_pac()
-    wall_group.draw(screen)
+    
+    all_sprites_group.draw(screen)
 
 
     # -- flip display to reveal new position of objects
