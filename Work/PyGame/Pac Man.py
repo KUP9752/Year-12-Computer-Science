@@ -52,19 +52,12 @@ f.close()
 class Wall(pygame.sprite.Sprite):
     def __init__(self,x,y):
         super().__init__()
-        #self.colour = BLUE
-        #self.w= 20
-        #self.h= 20
         self.image= pygame.Surface([20,20])
         self.image.fill(BLUE)
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        
-##    def update(self):
-##        self.rect.x = self.rect.x
-##        self.rect.y = self.rect.y
-##        
+         
         
 
 
@@ -123,6 +116,15 @@ class PacMan(pygame.sprite.Sprite):
            self.rect.x =490
         elif (self.rect.y>=240 and self.rect.y<=260) and self.rect.x>=500:
             self.rect.x =0
+
+class Points(pygame.sprite.Sprite):
+    def __init__(self,x,y):
+        super().__init__()
+        self.x = x
+        self.y = y
+    def draw_points(self):
+        pygame.draw.circle(screen, WHITE, (self.x,self.y), 2,0)
+            
         
 
 
@@ -130,18 +132,27 @@ class PacMan(pygame.sprite.Sprite):
 #Sprite groups
 all_sprites_group = pygame.sprite.Group()
 wall_group = pygame.sprite.Group()
+points_group = pygame.sprite.Group()
 
 player = PacMan(250,305)
 player_group = pygame.sprite.Group()
 player_group.add(player)
 all_sprites_group.add(player) 
 
+
+#- Maze creation logic
 for y in range(len(maze)):
     for x in range(len(maze[y])):
         if maze[y][x] == 1:
             wall = Wall(x*20,y*20)
             wall_group.add(wall)
             all_sprites_group.add(wall)
+            
+        elif maze[y][x] == 0:
+            point = Points(x*20+10,y*20+10)
+            point.draw_points()
+            
+            
             
         
     

@@ -183,8 +183,8 @@ while not game_over:
     pygame.draw.circle(screen, RED, (circ_x, circ_y), 8, 0)
 
 
-    # Make the mouse pointer appear in the middle of the square...
-        # -- flip display to reveal new position of objects
+    
+# -- flip display to reveal new position of objects
     pygame.display.flip()
 
     # - The clock ticks over
