@@ -98,8 +98,22 @@ class PacMan(pygame.sprite.Sprite):
         self.direction_y = val
 
     def update(self):
+        
         self.rect.x += self.direction_x*self.speed
         self.rect.y += self.direction_y*self.speed
+        wall_hit_group = pygame.sprite.groupcollide(player_group,wall_group,False,False)
+
+        for player in wall_hit_group:
+            if self.direction_x == 1:
+                self.rect.x-= self.speed*self.direction_x
+            elif self.direction_x ==-1:
+                self.rect.x -=self.speed*self.direction_x
+            elif self.direction_y ==1:
+                self.rect.y -= self.speed*self.direction_y
+            elif self.direction_y ==-1:
+                self.rect.y -=self.speed*self.direction_y
+                
+        
 
         if self.rect.y <=0 and (self.rect.x>=240 and self.rect.x<=260):
             self.rect.y = 490
@@ -118,6 +132,9 @@ all_sprites_group = pygame.sprite.Group()
 wall_group = pygame.sprite.Group()
 
 player = PacMan(250,305)
+player_group = pygame.sprite.Group()
+player_group.add(player)
+all_sprites_group.add(player) 
 
 for y in range(len(maze)):
     for x in range(len(maze[y])):
@@ -132,7 +149,7 @@ for y in range(len(maze)):
 
 
 
-all_sprites_group.add(player) 
+
 
 game_over = False
 
