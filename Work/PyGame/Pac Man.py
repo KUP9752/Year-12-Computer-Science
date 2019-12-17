@@ -21,8 +21,13 @@ AQUA = (22,160,133)
 PINK = (255,89,222)
 COLOUR = [WHITE,BLUE,YELLOW,RED,GREEN,ORANGE,PURPLE,AQUA,PINK]
 
+
+
 # -- Initialise PyGame
 pygame.init()
+
+# -- Font
+font = pygame.font.Font('freesansbold.ttf',15)
 
 # -- Manages how fast screen refreshes
 
@@ -117,15 +122,19 @@ class PacMan(pygame.sprite.Sprite):
         elif (self.rect.y>=240 and self.rect.y<=260) and self.rect.x>=500:
             self.rect.x =0
 
+
+
 class Points(pygame.sprite.Sprite):
     def __init__(self,x,y):
         super().__init__()
         self.x = x
         self.y = y
-    def draw_points(self):
+        
+    def draw_point(self):
         pygame.draw.circle(screen, WHITE, (self.x,self.y), 2,0)
             
-        
+    def update(self):
+        pygame.draw.circle(screen, WHITE, (self.x,self.y), 2,0)
 
 
 
@@ -143,15 +152,16 @@ all_sprites_group.add(player)
 #- Maze creation logic
 for y in range(len(maze)):
     for x in range(len(maze[y])):
-        if maze[y][x] == 1:
+        if maze[y][x] ==1:
             wall = Wall(x*20,y*20)
-            wall_group.add(wall)
             all_sprites_group.add(wall)
+            wall_group.add(wall)
             
-        elif maze[y][x] == 0:
-            point = Points(x*20+10,y*20+10)
-            point.draw_points()
-            
+        if maze[y][x] == 0:
+            point = Points(((x*20)+10),((y*20)+10))
+            points_group.add(point)
+            point.draw_point()
+            pygame.display.flip()
             
             
         
@@ -192,10 +202,11 @@ while not game_over:
                  
     # -- Game logic goes after this comment
     all_sprites_group.update()
+    points_group.update()
 
     
     # -- Text
-    font = pygame.font.Font('freesansbold.ttf',15)
+    
         
     
 
