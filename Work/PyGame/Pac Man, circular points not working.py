@@ -27,8 +27,7 @@ COLOUR = [WHITE,BLUE,YELLOW,RED,GREEN,ORANGE,PURPLE,AQUA,PINK]
 pygame.init()
 
 # -- Font
-font = pygame.font.Font('freesansbold.ttf',20)
-bigfont = pygame.font.Font('freesansbold.ttf', 32)
+font = pygame.font.Font('freesansbold.ttf',15)
 
 # -- Manages how fast screen refreshes
 
@@ -37,7 +36,7 @@ clock = pygame.time.Clock()
 
 # -- Blank Screen
 
-size = (500,560)
+size = (500,500)
 screen = pygame.display.set_mode(size)
 
 # -- Title of new window/screen
@@ -49,7 +48,7 @@ f = open('maze.json','rt')
 maze = json.load(f)
 f.close()
 
-score = 0
+
 
     
 
@@ -75,7 +74,7 @@ class PacMan(pygame.sprite.Sprite):
         self.speed = 2
         self.surface = screen
         self.colour = YELLOW
-        self.image = pygame.Surface([12,12])
+        self.image = pygame.Surface([10,10])
         self.image.fill(YELLOW)
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -128,14 +127,18 @@ class PacMan(pygame.sprite.Sprite):
 class Points(pygame.sprite.Sprite):
     def __init__(self,x,y):
         super().__init__()
-        self.image = pygame.Surface([2,2])
-        self.image.fill(WHITE)
-        self.rect =self.image.get_rect()
+        self.x = x
+        self.y = y
         
-        self.rect.x = x
-        self.rect.y = y
+    def draw_point(self):
+        pygame.draw.circle(screen, WHITE, (self.x,self.y), 2,0)
+            
+    def update(self):
+        pygame.draw.circle(screen, WHITE, (self.x,self.y), 2,0)
 
-#--Sprite groups
+
+
+#Sprite groups
 all_sprites_group = pygame.sprite.Group()
 wall_group = pygame.sprite.Group()
 points_group = pygame.sprite.Group()
@@ -154,11 +157,11 @@ for y in range(len(maze)):
             all_sprites_group.add(wall)
             wall_group.add(wall)
             
-        elif maze[y][x] == 0 and not((y>=11 and y<=13) and (x>= 10 and x <=15)):
+        if maze[y][x] == 0:
             point = Points(((x*20)+10),((y*20)+10))
             points_group.add(point)
-            all_sprites_group.add(point)
-            
+            point.draw_point()
+            pygame.display.flip()
             
             
         
@@ -201,32 +204,16 @@ while not game_over:
     all_sprites_group.update()
     points_group.update()
 
-    point_hit_group = pygame.sprite.groupcollide(player_group,points_group,False,True)
     
-    for elem in point_hit_group:
-        score += 10
-    
-        
-    #next elem
-        
     # -- Text
-    textScore = font.render('Score:' + str(score), False, WHITE)
-    textScoreRect = textScore.get_rect()
-    textScoreRect.center = (55,550)
-
-    textOver = bigfont.render('GAME OVER',False,RED)
-    textOverRect = textOver.get_rect()
-    textOverRect.center = (250,250)
+    
+        
     
 
     # -- Screen background is BLACK
     screen.fill(BLACK)
-    
     # -- Display text
-    screen.blit(textScore,textScoreRect)
-    if len(points_group)<=0:
-        all_sprites_group.empty()
-        screen.blit(textOver,textOverRect)
+    
     # -- Draw here
     
     all_sprites_group.draw(screen)
