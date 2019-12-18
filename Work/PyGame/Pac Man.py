@@ -63,30 +63,67 @@ class Wall(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+
+class Points(pygame.sprite.Sprite):
+    def __init__(self,x,y):
+        super().__init__()
+        self.image = pygame.Surface([2,2])
+        self.image.fill(WHITE)
+        self.rect =self.image.get_rect()
+        
+        self.rect.x = x
+        self.rect.y = y
+
+class PowerUp(pygame.sprite.Sprite):
+    def __init__(self,x,y):
+        super().__init__()
+        self.image = pygame.Surface([8,8])
+        self.image.fill(GREEN)
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
          
         
-
-
+class Ghost(pygame.sprite.Sprite):
+    def __init__(self,x,y,colour):
+        super().__init__()
+        self.image = pygame.Surface([12,12])
+        self.image.fill(colour)
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+    
+##class B_Ghost(pygame.sprite.Sprite):
+##    def __init__(self,x,y):
+##        super().__init__()
+##        self.image = pygame.Surface([12,12])
+##        self.image.fill(AQUA)
+##        self.rect = self.image.get_rect()
+##        self.rect.x = x
+##        self.rect.y = y
 
 
 class PacMan(pygame.sprite.Sprite):
-    def __init__(self,x,y):
+    def __init__(self,x,y, colour):
         super().__init__()
         self.speed = 2
-        self.surface = screen
-        self.colour = YELLOW
+        self.state = 0
+        
         self.image = pygame.Surface([12,12])
-        self.image.fill(YELLOW)
+        self.image.fill(colour)
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
         self.direction_x = 0
         self.direction_y=0
-        
 
-  
-        
-
+    def set_state(self,val):
+        self.state = val
+        if self.state == 1:
+            self.image.fill(AQUA)
+        elif self.state == 0:
+            self.image.fill(YELLOW)
+       
     def set_direction_x(self,val):
         
         self.direction_x = val
@@ -125,26 +162,24 @@ class PacMan(pygame.sprite.Sprite):
 
 
 
-class Points(pygame.sprite.Sprite):
-    def __init__(self,x,y):
-        super().__init__()
-        self.image = pygame.Surface([2,2])
-        self.image.fill(WHITE)
-        self.rect =self.image.get_rect()
-        
-        self.rect.x = x
-        self.rect.y = y
+
 
 #--Sprite groups
 all_sprites_group = pygame.sprite.Group()
+player_group = pygame.sprite.Group()
 wall_group = pygame.sprite.Group()
 points_group = pygame.sprite.Group()
+ghost_group = pygame.sprite.Group()
+power_group = pygame.sprite.Group()
 
-player = PacMan(250,305)
-player_group = pygame.sprite.Group()
+player = PacMan(245,305,YELLOW)
+
 player_group.add(player)
 all_sprites_group.add(player) 
 
+ghostR = Ghost(245,250,RED)
+ghost_group.add(ghostR)
+all_sprites_group.add(ghostR)
 
 #- Maze creation logic
 for y in range(len(maze)):
@@ -155,15 +190,28 @@ for y in range(len(maze)):
             wall_group.add(wall)
             
         elif maze[y][x] == 0 and not((y>=11 and y<=13) and (x>= 10 and x <=15)):
-            point = Points(((x*20)+10),((y*20)+10))
-            points_group.add(point)
-            all_sprites_group.add(point)
+            if (y == 1 and (x== 1 or x ==23)) or (y ==23 and x ==1) or (y ==22 and x ==23):
+                powerUp = PowerUp(((x*20)+6),((y*20)+6))
+                power_group.add(powerUp)
+                all_sprites_group.add(powerUp)
+            else:
+                point = Points(((x*20)+8),((y*20)+8))
+                points_group.add(point)
+                all_sprites_group.add(point)
             
             
             
         
     
 #next index
+
+timer = 0
+max_power = 4
+
+
+
+
+
 
 
 
@@ -202,31 +250,77 @@ while not game_over:
     points_group.update()
 
     point_hit_group = pygame.sprite.groupcollide(player_group,points_group,False,True)
+    power_hit_group = pygame.sprite.groupcollide(player_group,power_group,False,True)
+    
     
     for elem in point_hit_group:
         score += 10
-    
+    #next elem
+    for elem in power_hit_group:
+        score += 100
         
     #next elem
+
+    if len(power_group)<max_power:
+        timer += 1
         
+    if len(power_group)<max_power and timer <250:
+        player.set_state(1)
+        
+    elif timer == 250:
+        player.set_state(0)
+        max_power -= 1
+        timer = 0
+        
+    if player.state == 0:
+        ghost_hit_group = pygame.sprite.groupcollide(player_group,ghost_group,True,False)
+    #End if
+    
+
+
+    # -- Screen background is BLACK
+    screen.fill(BLACK)
     # -- Text
     textScore = font.render('Score:' + str(score), False, WHITE)
     textScoreRect = textScore.get_rect()
     textScoreRect.center = (55,550)
 
+    textPower = font.render('Usage of Power-Up:',False,GREEN)
+    textPowerRect = textPower.get_rect()
+    textPowerRect.center = (350, 550)
+
     textOver = bigfont.render('GAME OVER',False,RED)
     textOverRect = textOver.get_rect()
     textOverRect.center = (250,250)
-    
 
-    # -- Screen background is BLACK
-    screen.fill(BLACK)
-    
+    textLost = font.render('YOU LOST!',False, RED)
+    textLostRect = textLost.get_rect()
+    textLostRect.center = (250,280)
+
+    textTime = font.render('None',False,RED)
+    textTimeRect = textTime.get_rect()
+    textTimeRect.center = (475,550)
     # -- Display text
-    screen.blit(textScore,textScoreRect)
-    if len(points_group)<=0:
+    
+    if len(points_group)+ len(power_group)<=0:
         all_sprites_group.empty()
         screen.blit(textOver,textOverRect)
+        textScore = font.render('Your Score is: ' + str(score),False, BLUE)
+        textScoreRect.center = (210, 280)
+    elif len(player_group) == 0:
+        all_sprites_group.empty()
+        screen.blit(textOver,textOverRect)
+        textScore = font.render('Your Score is: ' + str(score),False, BLUE)
+        textScoreRect.center = (210,310)
+        screen.blit(textLost,textLostRect)
+    if len(power_group)<max_power:
+        perc = int((100/250)*timer)
+        textTime = font.render(str(perc)+'%',False,GREEN)
+        
+
+    screen.blit(textTime,textTimeRect)    
+    screen.blit(textScore,textScoreRect)
+    screen.blit(textPower,textPowerRect)
     # -- Draw here
     
     all_sprites_group.draw(screen)
