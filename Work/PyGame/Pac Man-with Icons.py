@@ -51,8 +51,26 @@ f.close()
 
 score = 0
 
+# -- Loading PacMan Icons
 
+PacmanR = pygame.image.load('PacIcons/Pacman/pacmanR.png')
+PacmanL = pygame.image.load('PacIcons/Pacman/pacmanL.png')
+PacmanU = pygame.image.load('PacIcons/Pacman/pacmanU.png')
+PacmanD = pygame.image.load('PacIcons/Pacman/pacmanD.png')
+P_PacmanR = pygame.image.load('PacIcons/Pacman/P-pacmanR.png')
+P_PacmanL = pygame.image.load('PacIcons/Pacman/P-pacmanL.png')
+P_PacmanU = pygame.image.load('PacIcons/Pacman/P-pacmanU.png')
+P_PacmanD = pygame.image.load('PacIcons/Pacman/P-pacmanD.png')
 
+GhostR = pygame.image.load('PacIcons/Ghost/ghostR.png')
+GhostL = pygame.image.load('PacIcons/Ghost/ghostL.png')
+GhostU = pygame.image.load('PacIcons/Ghost/ghostU.png')
+GhostD = pygame.image.load('PacIcons/Ghost/ghostD.png')
+GhostRU= pygame.image.load('PacIcons/Ghost/ghostRU.png')
+GhostLU = pygame.image.load('PacIcons/Ghost/ghostLU.png')
+GhostRD = pygame.image.load('PacIcons/Ghost/ghostRD.png')
+GhostLD = pygame.image.load('PacIcons/Ghost/ghostLD.png')
+P_Ghost = pygame.image.load('PacIcons/Ghost/P-ghost.png')
 # -- My Classes
 
 class Wall(pygame.sprite.Sprite):
@@ -88,10 +106,12 @@ class Ghost(pygame.sprite.Sprite):
     def __init__(self,x,y,colour,):
         super().__init__()
         self.state = 0
-        
         self.colour = colour
+        self.colour = colour
+
+        self.icon = GhostD
         self.image = pygame.Surface([12,12])
-        self.image.fill(self.colour)
+      
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
@@ -99,10 +119,43 @@ class Ghost(pygame.sprite.Sprite):
     def set_state(self,val):
         self.state = val
         if self.state == 1:
-            self.image.fill(PURPLE)
+            self.icon = P_Ghost
         elif self.state ==0:
-            self.image.fill(self.colour)
-    
+            if self.rect.x > player.rect.x and self.rect.y<player.rect.y:
+                self.icon = GhostLD
+            elif self.rect.x == player.rect.x and self.rect.y<player.rect.y:
+                self.icon = GhostD
+            elif self.rect.x < player.rect.x and self.rect.y<player.rect.y:
+                self.icon = GhostRD
+            elif self.rect.x< player.rect.x and self.rect.y == player.rect.y:
+                self.icon = Ghost
+            elif self.rect.x< player.rect.x and self.rect.y>player.rect.y:
+                self.icon = GhostRU
+            elif self.rect.x == player.rect.x and self.rect.y> player.rect.y:
+                self.icon = GhostU
+            elif self.rect.x>player.rect.x and self.rect.y>player.rect.y:
+                self.icon = GhostLU
+            elif self.rect.x>player.rect.x and self.rect.y == player.rect.y:
+                self.icon = GhostL
+    def update(self):
+        
+        if self.rect.x > player.rect.x and self.rect.y<player.rect.y:
+            self.icon = GhostLD
+        elif self.rect.x == player.rect.x and self.rect.y<player.rect.y:
+            self.icon = GhostD
+        elif self.rect.x < player.rect.x and self.rect.y<player.rect.y:
+            self.icon = GhostRD
+        elif self.rect.x< player.rect.x and self.rect.y == player.rect.y:
+            self.icon = Ghost
+        elif self.rect.x< player.rect.x and self.rect.y>player.rect.y:
+            self.icon = GhostRU
+        elif self.rect.x == player.rect.x and self.rect.y> player.rect.y:
+            self.icon = GhostU
+        elif self.rect.x>player.rect.x and self.rect.y>player.rect.y:
+            self.icon = GhostLU
+        elif self.rect.x>player.rect.x and self.rect.y == player.rect.y:
+            self.icon = GhostL
+            
     
 
 
@@ -112,21 +165,44 @@ class PacMan(pygame.sprite.Sprite):
         super().__init__()
         self.speed = 2
         self.state = 0
+
+      
+        self.icon = PacmanR
         
-        self.image = pygame.Surface([12,12])
-        self.image.fill(colour)
+        self.image= pygame.Surface([12,12])
+        
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
         self.direction_x = 0
         self.direction_y=0
 
+    def set_image(self,val):
+        if val ==0 :
+            if self.state == 1:
+                self.icon = P_PacmanR
+            else:
+                self.icon = PacmanR
+        elif val == 1:
+            if self.state == 1:
+                self.icon = P_PacmanL
+            else:
+                self.icon = PacmanL
+        elif val == 2:
+            if self.state == 1:
+                self.icon = P_PacmanU
+            else:
+                self.icon = PacmanU
+        elif val == 3:
+            if self.state == 1:
+                self.icon = P_PacmanD
+            else:
+                self.icon = PacmanD
+
+            
     def set_state(self,val):
         self.state = val
-        if self.state == 1:
-            self.image.fill(AQUA)
-        elif self.state == 0:
-            self.image.fill(YELLOW)
+
        
     def set_direction_x(self,val):
         
@@ -138,6 +214,14 @@ class PacMan(pygame.sprite.Sprite):
         self.direction_y = val
 
     def update(self):
+        if self.direction_x == 1:
+            self.set_image(0)
+        elif self.direction_x ==-1:
+            self.set_image(1)
+        elif self.direction_y ==1:
+            self.set_image(3)
+        elif self.direction_y ==-1:
+            self.set_image(2)
         
         self.rect.x += self.direction_x*self.speed
         self.rect.y += self.direction_y*self.speed
@@ -164,6 +248,10 @@ class PacMan(pygame.sprite.Sprite):
         elif (self.rect.y>=240 and self.rect.y<=260) and self.rect.x>=500:
             self.rect.x =0
 
+        
+
+
+                    
 def create_ghost(name,x,y,colour):
     name = Ghost(x,y,colour)
     ghost_group.add(name)
@@ -185,9 +273,13 @@ player = PacMan(245,305,YELLOW)
 player_group.add(player)
 all_sprites_group.add(player)
 
-create_ghost('ghostR',245,250,RED)
+
+ghostR = Ghost(245,250,RED)
+ghost_group.add(ghostR)
+all_sprites_group.add(ghostR)
 
 
+player_hit_group = []
 
 #- Maze and points creation logic
 for y in range(len(maze)):
@@ -217,7 +309,7 @@ timer = 0
 max_power = 4
 
 g_timer = -1
-
+cooldown = 0
 
 
 
@@ -293,13 +385,17 @@ while not game_over:
         if len(player_hit_group)>0:
             score += 250
             g_timer = 0
+            cooldown = 1
     #End if
             
     if g_timer>=0:
         g_timer +=1
     if g_timer>=125:
         g_timer = -1
-        create_ghost('ghostR',245,250,RED)
+        ghostR = Ghost(245,250,RED)
+        ghost_group.add(ghostR)
+        all_sprites_group.add(ghostR)
+        cooldown = 0
         
     
 
@@ -333,6 +429,9 @@ while not game_over:
     textSpawnTime = font.render('None',False,RED)
     textSpawnTimeRect = textSpawnTime.get_rect()
     textSpawnTimeRect.center = (475,525)
+
+
+    
     # -- Display text
     
     if len(points_group)+ len(power_group)<=0:
@@ -366,8 +465,14 @@ while not game_over:
     # -- Draw here
     
     all_sprites_group.draw(screen)
+    
+    if len(all_sprites_group) !=0 or len(player_group) !=0:
+        screen.blit(player.icon,(player.rect.x-4,player.rect.y-4))
+        if len(player_hit_group)==0 and cooldown ==0:
+             screen.blit(ghostR.icon,(ghostR.rect.x-4,ghostR.rect.y-4))
+        
 
-
+        
     # -- flip display to reveal new position of objects
     pygame.display.flip()
 
