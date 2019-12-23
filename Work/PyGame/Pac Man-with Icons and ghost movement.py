@@ -51,7 +51,7 @@ f.close()
 
 score = 0
 
-# -- Loading PacMan Icons
+##---------------------------------------------------------------------Loading PacMan Icons---------------------------------------------------------------------##
 
 PacmanR = pygame.image.load('PacIcons/Pacman/pacmanR.png')
 PacmanL = pygame.image.load('PacIcons/Pacman/pacmanL.png')
@@ -71,7 +71,10 @@ GhostLU = pygame.image.load('PacIcons/Ghost/ghostLU.png')
 GhostRD = pygame.image.load('PacIcons/Ghost/ghostRD.png')
 GhostLD = pygame.image.load('PacIcons/Ghost/ghostLD.png')
 P_Ghost = pygame.image.load('PacIcons/Ghost/P-ghost.png')
-# -- My Classes
+
+
+
+## ---------------------------------------------------------------------My Classes-----------------------------------------------------------------------##
 
 class Wall(pygame.sprite.Sprite):
     def __init__(self,x,y):
@@ -108,13 +111,18 @@ class Ghost(pygame.sprite.Sprite):
         self.state = 0
         self.colour = colour
         self.colour = colour
-
+        self.speed = 1
+        self.start_condition = 1
+        
         self.icon = GhostD
         self.image = pygame.Surface([12,12])
       
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+
+        self.direction_x = 0
+        self.direction_y = 0
         
     def set_state(self,val):
         self.state = val
@@ -137,6 +145,16 @@ class Ghost(pygame.sprite.Sprite):
                 self.icon = GhostLU
             elif self.rect.x>player.rect.x and self.rect.y == player.rect.y:
                 self.icon = GhostL
+
+    def set_ghost_direction_x(self,val):
+        self.direction_x = val
+        
+    def set_ghost_direction_y(self,val):
+        self.direction_y = val
+        
+
+    ##   !!!-    -1 in y direction goes UP   -!!!
+        
     def update(self):
         
         if self.rect.x > player.rect.x and self.rect.y<player.rect.y:
@@ -156,8 +174,43 @@ class Ghost(pygame.sprite.Sprite):
         elif self.rect.x>player.rect.x and self.rect.y == player.rect.y:
             self.icon = GhostL
             
-    
+        if self.start_condition == 1:
+            self.set_ghost_direction_y(-1)
 
+        if self.rect.y == 160 and self.start_condition ==1:
+            self.start_condition = -1
+            
+        if self.start_condition == -1:
+            self.start_condition = 2
+            self.set_ghost_direction_y(0)
+            
+            
+        self.rect.x += self.direction_x*self.speed
+        self.rect.y += self.direction_y*self.speed    
+        ghost_wall_hit_group = pygame.sprite.groupcollide(ghost_group,wall_group,False,False)
+
+        for element in ghost_wall_hit_group:
+            if self.direction_x == 1:
+                self.rect.x-= self.speed*self.direction_x
+            elif self.direction_x ==-1:
+                self.rect.x -=self.speed*self.direction_x
+            elif self.direction_y ==1:
+                self.rect.y -= self.speed*self.direction_y
+            elif self.direction_y ==-1:
+                self.rect.y -=self.speed*self.direction_y
+        
+        
+            
+            
+    
+        if self.rect.y <=0 and (self.rect.x>=240 and self.rect.x<=260):
+            self.rect.y = 490
+        elif self.rect.y>=500 and (self.rect.x>=240 and self.rect.x<=260):
+            self.rect.y = 0
+        elif (self.rect.y>=240 and self.rect.y<=260) and self.rect.x<=0:
+           self.rect.x =490
+        elif (self.rect.y>=240 and self.rect.y<=260) and self.rect.x>=500:
+            self.rect.x =0
 
 
 class PacMan(pygame.sprite.Sprite):
@@ -260,7 +313,7 @@ def create_ghost(name,x,y,colour):
 
 
 
-#--Sprite groups
+##---------------------------------------------------------------------Sprite groups and Sprite Initiation---------------------------------------------------------------------##
 all_sprites_group = pygame.sprite.Group()
 player_group = pygame.sprite.Group()
 wall_group = pygame.sprite.Group()
@@ -281,7 +334,7 @@ all_sprites_group.add(ghostR)
 
 player_hit_group = []
 
-#- Maze and points creation logic
+##--------------------------------------------------------------------- Maze and points creation logic---------------------------------------------------------------------##
 for y in range(len(maze)):
     for x in range(len(maze[y])):
         if maze[y][x] ==1:
@@ -297,14 +350,13 @@ for y in range(len(maze)):
         elif maze[y][x]==2:
             powerUp = PowerUp(((x*20)+6),((y*20)+6))
             power_group.add(powerUp)
-            all_sprites_group.add(powerUp)
-                
-            
-            
-        
-    
-#next index
+            all_sprites_group.add(powerUp)    
+    #next x   
+#next y
 
+
+
+##---------------------------------------------------------------------Variables---------------------------------------------------------------------##
 timer = 0
 max_power = 4
 
@@ -320,10 +372,10 @@ cooldown = 0
 
 game_over = False
 
-
-### -- Game Loop
+##                                                                                       _________             
+##______________________________________________________________________________________/GAME LOOP\_____________________________________________________________________________________________________##
 while not game_over:
-    # -- User input and controls
+    ##--------------------------------------------------------------------- User input and controls---------------------------------------------------------------------##
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -346,7 +398,7 @@ while not game_over:
 
     
                  
-    # -- Game logic goes after this comment
+    ##---------------------------------------------------------------------Game logic goes after this comment---------------------------------------------------------------------##
     all_sprites_group.update()
     points_group.update()
 
@@ -400,9 +452,9 @@ while not game_over:
     
 
 
-    # -- Screen background is BLACK
+    # -- Screen Set to BLACK
     screen.fill(BLACK)
-    # -- Text
+    ##---------------------------------------------------------------------Text---------------------------------------------------------------------##
     textScore = font.render('Score:' + str(score), False, WHITE)
     textScoreRect = textScore.get_rect()
     textScoreRect.center = (55,550)
@@ -432,7 +484,7 @@ while not game_over:
 
 
     
-    # -- Display text
+    #---------------------------------------------------------------------Display text---------------------------------------------------------------------##
     
     if len(points_group)+ len(power_group)<=0:
         all_sprites_group.empty()
@@ -462,7 +514,7 @@ while not game_over:
         screen.blit(textSpawnTime,textSpawnTimeRect)
 
     screen.blit(textScore,textScoreRect)
-    # -- Draw here
+    ##---------------------------------------------------------------------Draw here---------------------------------------------------------------------##
     
     all_sprites_group.draw(screen)
     
@@ -483,5 +535,4 @@ while not game_over:
 
 pygame.quit()
 
-##while not game_over:
 
