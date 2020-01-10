@@ -4,13 +4,54 @@ Software -->System Software
 Software development life cycle
 -Analysis 
 -Design
--Implementation
--Evaluation
--Maintenance (usually repeats the cycle)
+-Implementation ==> coding and testing software,writing user and technical documentation, installing the 			software for the user.	
+-Evaluation (also called accceptance testing) ==> testing every aspect of the end program to make sure it does what it is supposed to do -> checked against the original specification/requirements. Usually done by the customer side to check if it is an acceptable 
+-Maintenance (usually repeats the cycle as the previous steps will be checked/fixed) ===> 
+	Corrective maintenance-> fixing the bugs found by users when the software is put into action, 
+	Adaptive maintenance -> changing user requirements,
+	Perfective maintenance -> making it even better even after it is working properly, increase 	efficiency and adds more functionality.
 
-systems analyst==> gathers info about what the current system does(if there is one), determines what new system needs to do
+
+
+					Testing strategies
+
+Black Box ==> it is carried out independently of the code used in the program, input output is checked
+
+White Box ==> depends on the code logic, it tests all the paths throught the code at least once.
+
+Alpha testing ==> carried out by the software developer's in-house team and by the user
+		it can reveal errors and omissions in the definition of system requirements
+
+[a/b testing ==> testing 2 or more version of the same software with different groups and creating the final product according to the reviews etc.]
+
+Systems Analyst==> gathers info about what the current system does(if there is one), determines what new system needs to do, producing specification/requirements==> this defines what the system will do (but not how it will do it) and the specification is used to create the design and evaulate the finsihed product.
 To do this:
 	Interview clients that is going to use the software
 	questionnaires to get info from large groups of people
 	Observe how current software works
 	Look at existing documentation
+
+
+				DEVELOPMENT MODELS
+Waterfall model
+
+--it is useful when the requirements are very clear and fixed
+--there are no ambiguous specs
+--technology is well understood
+--project is short
+
+Spiral model
+
+many prototypes made that can add user input on the way
+funcctionality can be added as  the user interacts during the stages
+
+not suitable for short projects as it can be expensive and time consuming to prototype every step and wait for opinions of the users
+
+
+The Agile Development Model
+
+similar to cycle/spiral model but the user/customer is kept very close in the loop and they are prioratised and development is quick and presented to the user quickly before starting the other part of the project. 
+--developed in rapid incremental cycles
+--good for small time-critical projects
+--each version is thoroughly before release
+--Limimted planning needed before starting -> quick start
