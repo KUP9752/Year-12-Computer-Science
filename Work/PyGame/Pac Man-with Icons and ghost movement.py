@@ -74,7 +74,7 @@ P_Ghost = pygame.image.load('PacIcons/Ghost/P-ghost.png')
 
 
 
-## ---------------------------------------------------------------------My Classes-----------------------------------------------------------------------##
+## ---------------------------------------------------------------------Classes-----------------------------------------------------------------------##
 
 class Wall(pygame.sprite.Sprite):
     def __init__(self,x,y):
@@ -266,6 +266,12 @@ class PacMan(pygame.sprite.Sprite):
     def set_direction_y(self,val):
         self.direction_y = val
 
+
+    def get_position(self):
+        position = [self.rect.x,self.rect.y]
+        return position
+
+    
     def update(self):
         if self.direction_x == 1:
             self.set_image(0)

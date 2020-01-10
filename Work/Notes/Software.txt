@@ -1,0 +1,16 @@
+Software -->System Software
+	 -->Application Software
+
+Software development life cycle
+-Analysis 
+-Design
+-Implementation
+-Evaluation
+-Maintenance (usually repeats the cycle)
+
+systems analyst==> gathers info about what the current system does(if there is one), determines what new system needs to do
+To do this:
+	Interview clients that is going to use the software
+	questionnaires to get info from large groups of people
+	Observe how current software works
+	Look at existing documentation
