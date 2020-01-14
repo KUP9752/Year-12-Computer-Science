@@ -3,7 +3,7 @@ Software -->System Software
 
 Software development life cycle
 -Analysis 
--Design
+-Design	(-> also make test plan for later)
 -Implementation ==> coding and testing software,writing user and technical documentation, installing the 			software for the user.	
 -Evaluation (also called accceptance testing) ==> testing every aspect of the end program to make sure it does what it is supposed to do -> checked against the original specification/requirements. Usually done by the customer side to check if it is an acceptable 
 -Maintenance (usually repeats the cycle as the previous steps will be checked/fixed) ===> 
@@ -17,12 +17,12 @@ Software development life cycle
 
 Black Box ==> it is carried out independently of the code used in the program, input output is checked
 
-White Box ==> depends on the code logic, it tests all the paths throught the code at least once.
+White Box ==> depends on the code logic, it tests all the paths throughout the code at least once.
 
 Alpha testing ==> carried out by the software developer's in-house team and by the user
 		it can reveal errors and omissions in the definition of system requirements
 
-[a/b testing ==> testing 2 or more version of the same software with different groups and creating the final product according to the reviews etc.]
+[a/b testing ==> testing 2 or more versions(some different functions) of the same software with different groups and creating the final product according to the reviews etc.]
 
 Systems Analyst==> gathers info about what the current system does(if there is one), determines what new system needs to do, producing specification/requirements==> this defines what the system will do (but not how it will do it) and the specification is used to create the design and evaulate the finsihed product.
 To do this:
