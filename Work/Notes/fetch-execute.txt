@@ -1,0 +1,19 @@
+
+FETCH-DECODE-EXECUTE
+
+
+
+
+PC -> MAR, code in adress fetched -> MDR, code in that address put in the MDR -> PC incremented for next instruction -> code put in CIR to be decoded -> the code is decoded into Opcode and Operand
+
+Opcode is the code that is to be executed
+
+Operand contains information like what the opcode is going to be executed on, values that are going to be used on calculations
+
+Immediate addressing ==> is using the value in the operand and using that in a calclation, the value of operand is the value to be used.
+
+Direct addressing ==> is when the operand contains an address of some data in the RAM which the calculation takes the data in the address and uses that to calculate. this is Von Neuman structure as the data is held in primary memory with instructions. This can be good as the data in the memory can be a larger value as the Operand might not be able to hold as much data as a slot in the RAM. One drawback is that the Operand cannot access all slots of the RAM as it cannot possibly hold a big number. 
+
+ALU does the logic calcualations, it has a register called the Accumulator
+
+

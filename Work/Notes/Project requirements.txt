@@ -1,0 +1,23 @@
+Must -> beta/succcess
+Should -> release
+Could -> Things that can be put in because they are easy to include
+Wont -> useful limitations
+
+
+Project: Puzzle/strategy game
+Must ->
+	include many levels of various difficulties
+	include classes for objects (for player and obstacles etc) that are going to be used
+	easy to understand what the objective of the game is
+Should ->
+	be able to play the game smoothly on various hardware (good/bad)		
+	offer help if the level is hard/frustrating
+	be convertible to an .exe to distribute and play on various devices
+Could ->
+	have some easily navigatable menu screens
+	have some sound effects and animations to make it more appealing
+Wont ->
+	be accessible on mobile devices
+	
+	
+	
