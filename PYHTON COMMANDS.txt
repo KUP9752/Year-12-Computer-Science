@@ -1,0 +1,10 @@
+PYTHON COMMANDS
+
+
+(READING ONE INPUT FOR LISTS)		s = str(input())
+a =[]
+a = s.split()
+for i in range(len(a)):
+   a[i] = int(a[i])
+print(a)
+					a = [int(i) for i in input().split()]

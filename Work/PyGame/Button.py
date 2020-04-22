@@ -7,8 +7,8 @@ win = pygame.display.set_mode((500,500))
 win.fill((0,0,0))
 
 class button():
-    def __init__(self, color, x,y,width,height, text=''):
-        self.color = color
+    def __init__(self, colour, x,y,width,height, text=''):
+        self.colour = colour
         self.x = x
         self.y = y
         self.width = width
@@ -20,7 +20,7 @@ class button():
         if outline:
             pygame.draw.rect(win, outline, (self.x-2,self.y-2,self.width+4,self.height+4),0)
             
-        pygame.draw.rect(win, self.color, (self.x,self.y,self.width,self.height),0)
+        pygame.draw.rect(win, self.colour, (self.x,self.y,self.width,self.height),0)
         
         if self.text != '':
             font = pygame.font.SysFont('comicsans', 60)
@@ -59,6 +59,6 @@ while run:
                 print("button clicked")
         if event.type == pygame.MOUSEMOTION:
             if greenButton.isOver(pos):
-                greenButton.color = (255,0,0)
+                greenButton.colour = (255,0,0)
             else:
-                greenButton.color = (0,255,0)
+                greenButton.colour = (0,255,0)
