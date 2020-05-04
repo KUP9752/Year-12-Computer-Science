@@ -1,6 +1,7 @@
-
-
-def notworkingmergesort(list1): #I think there was a mutaility problem of the lists in python for this recursion to work
+#i have 2 different programs I tried, the first one I wrote and when I saw that it didn't work I got some help from realpython.org and tried to seperate the merging and the sorting bits but neither worked.
+left= []
+right=[]
+def mergesort1(list1): #I think there was a mutaility problem of the lists in python for this recursion to work
     
     if len(list1)> 1:
         mid = len(list1) //2
@@ -17,24 +18,24 @@ def notworkingmergesort(list1): #I think there was a mutaility problem of the li
         rp = 0 #right pointer
         p = 0 #pointer that sorts the original list
 
-        while lp < len(left) and rp<len(right):
-            if left[lp] < right[rp]:
-                list1[p] = left[lp]
-                lp += 1
-            elif right[rp]< left[lp]:
-                list1[p] = right[rp]
-                rp += 1
-            p +=1
-        #if integer division is not exact and length of either list is longer we need to check that so
-        while lp<len(left):
+    while lp < len(left) and rp<len(right):
+        if left[lp] < right[rp]:
             list1[p] = left[lp]
             lp += 1
-            p +=1
-        while rp < len(right):
+        elif right[rp]< left[lp]:
             list1[p] = right[rp]
-            rp+=1
-            p+=1
-        print("Completed pass: ", list1)
+            rp += 1
+        p +=1
+    #if integer division is not exact and length of either list is longer we need to check that so
+    while lp<len(left):
+        list1[p] = left[lp]
+        lp += 1
+        p +=1
+    while rp < len(right):
+        list1[p] = right[rp]
+        rp+=1
+        p+=1
+    print("Completed pass: ", list1)
 
         
 list1 = [4,12,18,5,3,1,10,11,2,14]
@@ -80,9 +81,7 @@ def mergesort(list1):
 
     return merge(left=mergesort(list1[:mid]),right=mergesort(list1[mid:]))
 
-create_slist()
-print(mergesort(list1))
-
+mergesort1(list1)
 #maximum recursion reached no matter the length of my list, I dont know waht else to do
 
 
