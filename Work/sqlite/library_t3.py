@@ -19,12 +19,15 @@ def create_film_tables(db_file_name):
     
     #SQLite3 does not have a boolean/yes/no or date/time datatype
     
-
+    sql_code = \
+    "CREATE TABLE studio(studio_id TEXT, Description TEXT, HQ_address TEXT, HQ_city TEXT,"\
+    "PRIMARY KEY(studio_id))"
+    my_db.execute(sql_code)
     
     sql_code = \
     "CREATE TABLE film(film_id INTEGER, title TEXT, studio TEXT, "\
     "year INTEGER, prod_cost REAL, box_office REAL, seen TEXT, " \
-    "classification TEXT, PRIMARY KEY(film_id))"    
+    "classification TEXT, studio_id TEXT NOT NULL, CONSTRAINT fk_studio PRIMARY KEY(film_id), FOREIGN KEY(studio_id) REFERENCES studio(studio_id))"    
 
     my_db.execute(sql_code)
 
@@ -33,13 +36,9 @@ def create_film_tables(db_file_name):
 
     my_db.execute(sql_code)
     
-    sql_code = \
-    "CREATE TABLE studio(studio_id TEXT, Description TEXT, HQ_address TEXT, HQ_city TEXT,"\
-    "PRIMARY KEY(studio_id))"
-    my_db.execute(sql_code)
 
-    sql_code = \
-    "ALTER TABLE film ADD CONSTRAINT fk_studio, FOREIGN KEY(studio_id) REFERENCES studio(studio_id) NOT NULL"
+
+
 
 db_file_name = 'film.db'
 create_film_tables(db_file_name)
