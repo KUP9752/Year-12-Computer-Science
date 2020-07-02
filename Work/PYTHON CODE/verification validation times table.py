@@ -24,7 +24,7 @@ while not verified:
     while not validated:
         try:
             rows = int(input("How many rows [1-20]:")
-        except ValueError:
+        except: ValueError
             print("That wasn't an integer: Try Again!")
             continue
         #end try
