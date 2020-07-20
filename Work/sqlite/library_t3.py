@@ -36,10 +36,16 @@ def create_film_tables(db_file_name):
 
     my_db.execute(sql_code)
     
-
+def insert_AVATAR(db_file_name):
+    my_db = sqlite3.connect(db_file_name)
+    my_db.execute('PRAGMA foreign_keys = ON')
+    sql_code = \
+    "INSERT INTO film VALUES(1,'Avatar', 'Fox', 2009, 254.00, 2787.97,'Y','12')"
+    my_db.execute(sql_code)
 
 
 
 db_file_name = 'film.db'
 create_film_tables(db_file_name)
+insert_AVATAR(db_file_name)
 #db file size = 24KB
