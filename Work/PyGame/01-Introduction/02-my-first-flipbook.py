@@ -1,4 +1,5 @@
 import pygame
+import pygame.gfxdraw
 # -- Global Constants
 
 # -- Colours
@@ -6,7 +7,7 @@ BLACK = (0,0,0)
 WHITE = (255,255,255)
 BLUE = (50,50,255)
 YELLOW = (255,255,0)
-
+GREY =(128,128,128)
 # -- Initialise PyGame
 pygame.init()
 
@@ -48,8 +49,11 @@ while not game_over:
     screen.fill (BLACK)
 
     # -- Draw here
+    pygame.draw.rect(screen, YELLOW, (200, 200, 50, 50), 0)
     pygame.draw.rect(screen, BLUE, (220,165,200,150))
     pygame.draw.circle(screen, YELLOW, (circle_x_pos, circle_y_pos),40,0)
+    pygame.draw.aaline(screen, WHITE, (300,300), (600,450))
+    pygame.gfxdraw.pie(screen,100,200,100,55, 125, GREY)
 
     # -- flip display to reveal new position of objects
     pygame.display.flip()
